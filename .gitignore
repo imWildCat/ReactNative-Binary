@@ -174,3 +174,4 @@ xcuserdata/
 *.xccheckout
 
 DummyApp.xcodeproj/
+build/
