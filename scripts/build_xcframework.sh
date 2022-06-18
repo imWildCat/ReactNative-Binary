@@ -5,22 +5,29 @@ set -euo pipefail
 # export PATH="/usr/local/bin:$PATH"
 # export PATH="/opt/homebrew/bin/:$PATH"
 
+# Sample catalyst build command:
+# xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ARCHS=arm64\ x86_64 SUPPORTS_MACCATALYST=YES -workspace DummyApp.xcworkspace -sdk macosx -scheme DummyApp   | grep macabi
+# Sample iOS build command:
+# xcodebuild build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ARCHS=arm64\ x86_64 -workspace DummyApp.xcworkspace -sdk iphonesimulator -scheme DummyApp  | xcbeautify
+
 exclude_frameworks=("PINCache" "PINOperation" "PINRemoteImage" "Pods_DummyApp" "DummyApp")
 
 function archive() {
-  xcodebuild clean archive \
+  xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
     -sdk iphonesimulator \
-    SKIP_INSTALL=NO
+    SKIP_INSTALL=NO \
+    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcbeautify
 
-  xcodebuild clean archive \
+  xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
     -sdk iphoneos \
-    SKIP_INSTALL=NO
+    SKIP_INSTALL=NO \
+    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcbeautify
 }
 
 function create_xcframework() {

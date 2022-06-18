@@ -177,3 +177,6 @@ build/
 Pods/
 
 DerivedData/
+
+*.xcarchive
+DummyApp.tar.gz
