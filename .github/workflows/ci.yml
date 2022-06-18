@@ -15,4 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
+        name: Setup
       - uses: ./.github/workflows/archive
+        name: Archive
