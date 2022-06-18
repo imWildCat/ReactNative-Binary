@@ -17,8 +17,8 @@ jobs:
       - name: Prepare
         run: |
           make prepare
-      - name: Build
+      - name: Archive
         run: |
-          make build
+          make archive
       # - name: Test
       #   run: |
