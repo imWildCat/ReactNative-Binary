@@ -180,3 +180,5 @@ DerivedData/
 
 *.xcarchive
 DummyApp.tar.gz
+
+Frameworks/

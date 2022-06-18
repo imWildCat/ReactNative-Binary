@@ -28,6 +28,14 @@ function archive() {
     -sdk iphoneos \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcbeautify
+
+  xcodebuild archive \
+    -workspace $PROJECT.xcworkspace \
+    -scheme $PROJECT \
+    -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
+    -sdk macosx \
+    SKIP_INSTALL=NO \
+    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO SUPPORTS_MACCATALYST=YES | xcbeautify
 }
 
 function create_xcframework() {
@@ -46,7 +54,10 @@ function create_xcframework() {
     xcodebuild -create-xcframework \
       -framework $SRCROOT/$PROJECT-iphonesimulator.xcarchive/Products/Library/Frameworks/$basename \
       -framework $SRCROOT/$PROJECT-iphoneos.xcarchive/Products/Library/Frameworks/$basename \
+      -framework $SRCROOT/$PROJECT-maccatalyst.xcarchive/Products/Library/Frameworks/$basename \
       -output $SRCROOT/Frameworks/$framework_name.xcframework
+
+    echo "Created xcframework: $framework_name.xcframework"
   done
 
   # Find bundle resources
