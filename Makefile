@@ -6,6 +6,7 @@ archive:
 prepare:
 	brew bundle install --no-lock --file Brewfile
 	bundle install
+	cd frontend && yarn install
 
 gen:
 	xcodegen
