@@ -3,11 +3,31 @@ description: "Install dependencies"
 runs:
   using: "composite"
   steps:
-  - name: Prepare
-    shell: bash
-    run: |
-      make prepare
-  - name: 'Generate Xcode project'
-    shell: bash
-    run: |
-      make gen
+    - uses: actions/cache@v3
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+      shell: bash
+
+    - uses: actions/cache@v3
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Prepare
+      shell: bash
+      run: |
+        make prepare
+    - name: "Generate Xcode project"
+      shell: bash
+      run: |
+        make gen
