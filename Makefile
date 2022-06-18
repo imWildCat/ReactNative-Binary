@@ -5,3 +5,8 @@ archive:
 
 prepare:
 	brew bundle install --no-lock --file Brewfile
+	bundle install
+
+gen:
+	xcodegen
+	bundle exec pod install

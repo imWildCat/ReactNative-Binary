@@ -17,6 +17,9 @@ jobs:
       - name: Prepare
         run: |
           make prepare
+      - name: 'Generate Xcode project'
+        run: |
+          make gen
       - name: Archive
         run: |
           make archive
