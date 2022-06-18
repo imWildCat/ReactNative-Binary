@@ -20,6 +20,7 @@ function archive() {
     -sdk iphonesimulator \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
+    CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO | xcbeautify
 
@@ -30,6 +31,7 @@ function archive() {
     -sdk iphoneos \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
+    CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO | xcbeautify
 
@@ -40,6 +42,7 @@ function archive() {
     -sdk macosx \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
+    CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO \
     SUPPORTS_MACCATALYST=YES | xcbeautify
