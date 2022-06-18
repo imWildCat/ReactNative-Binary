@@ -17,3 +17,13 @@ CODE_SIGN_ENTITLEMENTS = DummyApp/DummyApp.entitlements
 PRODUCT_BUNDLE_IDENTIFIER = com.dummy.app
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited)
 OTHER_LDFLAGS = $(inherited) -ObjC
+CLANG_CXX_LANGUAGE_STANDARD = "gnu++17"
+
+// Intermediate build files go here
+PROJECT_TEMP_DIR = $(SRCROOT)/build/$(PROJECT_NAME).build
+
+// Build-related files for the active build configuration go here
+CONFIGURATION_BUILD_DIR = $(SRCROOT)/build/$CONFIGURATION
+
+// The final product executables and other build products go here
+BUILT_PRODUCTS_DIR = $(SRCROOT)/build/$CONFIGURATION

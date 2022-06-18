@@ -3,10 +3,6 @@ name: DummyApp
 #   - base_spec.yml
 options:
   bundleIdPrefix: com.my.dummy.app
-# packages:
-  # Yams:
-  #   url: https://github.com/jpsim/Yams
-  #   from: 2.0.0
 targets:
   DummyApp:
     type: application
@@ -14,22 +10,11 @@ targets:
     deploymentTarget: "13.0"
     sources: [DummyApp]
     configFiles:
-      Debug: xcconfig/DummyApp.xcconfig
-      Release: xcconfig/DummyApp.xcconfig
+      Debug: xcconfig/DummyApp.debug.xcconfig
+      Release: xcconfig/DummyApp.release.xcconfig
     # settings:
     #   configs:
     #     debug:
     #       CUSTOM_BUILD_SETTING: my_debug_value
     #     release:
     #       CUSTOM_BUILD_SETTING: my_release_value
-    # dependencies:
-  #     - target: MyFramework
-  #     - carthage: Alamofire
-  #     - framework: Vendor/MyFramework.framework
-  #     - sdk: Contacts.framework
-  #     - sdk: libc++.tbd
-  #     - package: Yams
-  # MyFramework:
-  #   type: framework
-  #   platform: iOS
-  #   sources: [MyFramework]
