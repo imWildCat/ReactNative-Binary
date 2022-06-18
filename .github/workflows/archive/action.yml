@@ -1,0 +1,9 @@
+name: "Archive"
+description: "Xcode Archive and generate xcframeworks"
+runs:
+  using: "composite"
+  steps:
+    - name: Archive
+      shell: bash
+      run: |
+        make archive
