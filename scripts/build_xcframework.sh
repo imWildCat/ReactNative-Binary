@@ -19,7 +19,9 @@ function archive() {
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
     -sdk iphonesimulator \
     SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcbeautify
+    ARCHS=arm64\ x86_64 \
+    CODE_SIGN_IDENTITY="" \
+    CODE_SIGNING_REQUIRED=NO | xcbeautify
 
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
@@ -27,7 +29,9 @@ function archive() {
     -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
     -sdk iphoneos \
     SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcbeautify
+    ARCHS=arm64\ x86_64 \
+    CODE_SIGN_IDENTITY="" \
+    CODE_SIGNING_REQUIRED=NO | xcbeautify
 
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
@@ -35,7 +39,10 @@ function archive() {
     -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
     -sdk macosx \
     SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO SUPPORTS_MACCATALYST=YES | xcbeautify
+    ARCHS=arm64\ x86_64 \
+    CODE_SIGN_IDENTITY="" \
+    CODE_SIGNING_REQUIRED=NO \
+    SUPPORTS_MACCATALYST=YES | xcbeautify
 }
 
 function create_xcframework() {
