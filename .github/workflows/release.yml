@@ -20,4 +20,4 @@ jobs:
       - name: "Run release script"
         shell: bash
         run: |
-          scripts/release.sh
+          make release
