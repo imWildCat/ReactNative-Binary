@@ -30,4 +30,5 @@ runs:
     - name: "Generate Xcode project"
       shell: bash
       run: |
+        make link-ccache
         make gen
