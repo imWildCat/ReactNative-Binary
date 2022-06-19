@@ -14,7 +14,8 @@ function distribute() {
 
   sed -i '' "s/version = '[^']*'/version = '$1'/g" ReactNative-Binary.podspec
   download_url="https://github.com/$repo_name/releases/download/$version_tag/$archive_name"
-  sed -i '' "s/source = '[^']*'/source = '$download_url'/g" ReactNative-Binary.podspec
+  escaped_download_url=$(printf '%s\n' $download_url | sed -e 's/[\/&]/\\&/g')
+  sed -i '' "s/source = '[^']*'/source = '$escaped_download_url'/g" ReactNative-Binary.podspec
 
   git config user.email "bot@wildcat.io"
   git config user.name "WildCat Bot"
