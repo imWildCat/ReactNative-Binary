@@ -8,9 +8,16 @@ jobs:
   build:
     name: Release
     runs-on: macos-12
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
       - uses: ./.github/workflows/setup
       - uses: ./.github/workflows/archive
+      - name: "Run release script"
+        shell: bash
+        run: |
+          scripts/release.sh

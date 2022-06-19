@@ -2,14 +2,6 @@
 
 set -euo pipefail
 
-# export PATH="/usr/local/bin:$PATH"
-# export PATH="/opt/homebrew/bin/:$PATH"
-
-# Sample catalyst build command:
-# xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ARCHS=arm64\ x86_64 SUPPORTS_MACCATALYST=YES -workspace DummyApp.xcworkspace -sdk macosx -scheme DummyApp   | grep macabi
-# Sample iOS build command:
-# xcodebuild build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ARCHS=arm64\ x86_64 -workspace DummyApp.xcworkspace -sdk iphonesimulator -scheme DummyApp  | xcbeautify
-
 exclude_frameworks=("PINCache" "PINOperation" "PINRemoteImage" "Pods_DummyApp" "DummyApp")
 
 function archive() {
@@ -79,25 +71,14 @@ function create_xcframework() {
 }
 
 function clean() {
-  # Clean Up
   rm -rf $SRCROOT/$PROJECT-iphoneos.xcarchive
   rm -rf $SRCROOT/$PROJECT-iphonesimulator.xcarchive
   rm -rf $SRCROOT/Frameworks
 }
 
-function distribute() {
-  echo "dummy release"
-  # gh release create "$1" --generate-notes -R "imWildCat/DummyApp"
-  # gh release upload "$1" $PROJECT.tar.gz -R "imWildCat/DummyApp" && rm -rf $PROJECT.tar.gz
-
-  # pod repo push imWildCat DummyApp.podspec --verbose --allow-warnings --skip-tests
-}
 
 cd $SRCROOT
-# version=$(cat DummyApp.podspec | grep version | sed -n 's/version.=."\(.*\)".*/\1/p' | xargs)
-version="1.0"
 
 archive
 create_xcframework
 clean
-distribute $version
