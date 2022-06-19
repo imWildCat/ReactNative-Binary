@@ -1,0 +1,12 @@
+#!/bin/sh
+# From: https://pspdfkit.com/blog/2015/ccache-for-fun-and-profit/
+if type -p ccache >/dev/null 2>&1; then
+  export CCACHE_FILECLONE=true
+  export CCACHE_DEPEND=true
+  export CCACHE_INODECACHE=true
+  # Reference: https://reactnative.dev/docs/next/build-speed
+  export CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros
+  exec ccache /usr/bin/clang++ "$@"
+else
+  exec clang "$@"
+fi

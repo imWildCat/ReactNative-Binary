@@ -15,3 +15,21 @@ target 'DummyApp' do
     hermes_enabled: false
   )
 end
+
+post_install do |installer|
+  # react_native_post_install(installer)
+
+  # ...possibly other post_install items here
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      # Using the un-qualified names means you can swap in different implementations, for example ccache
+      config.build_settings['CC'] = '$(PODS_ROOT)/../scripts/ccache-clang'
+      config.build_settings['LD'] = '$(PODS_ROOT)/../scripts/ccache-clang'
+      config.build_settings['CXX'] = '$(PODS_ROOT)/../scripts/ccache-clang++'
+      config.build_settings['LDPLUSPLUS'] = '$(PODS_ROOT)/../scripts/ccache-clang++'
+    end
+  end
+
+  __apply_Xcode_12_5_M1_post_install_workaround(installer)
+end

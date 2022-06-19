@@ -5,7 +5,7 @@ set -euo pipefail
 exclude_frameworks=("PINCache" "PINOperation" "PINRemoteImage" "Pods_DummyApp" "DummyApp")
 
 function archive() {
-  xcodebuild archive \
+  xcodebuild clean archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
