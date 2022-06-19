@@ -12,3 +12,9 @@ gen:
 	xcodegen
 	bundle exec pod install
 	scripts/patch_catalyst.sh
+
+link-ccache:
+	scripts/force_link_ccache.sh
+
+unlink-ccache:
+	scripts/force_link_ccache.sh clean
