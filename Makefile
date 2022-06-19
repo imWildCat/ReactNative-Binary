@@ -1,5 +1,6 @@
-archive: export SRCROOT = $(shell pwd)
-archive: export PROJECT = DummyApp
+export SRCROOT = $(shell pwd)
+export PROJECT = DummyApp
+
 archive:
 	scripts/build_xcframework.sh
 
