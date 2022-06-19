@@ -19,5 +19,7 @@ jobs:
       - uses: ./.github/workflows/archive
       - name: "Run release script"
         shell: bash
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           make release
