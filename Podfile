@@ -8,5 +8,10 @@ target 'DummyApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  use_react_native!(path: './frontend/node_modules/react-native')
+  use_react_native!(
+    path: './frontend/node_modules/react-native',
+    production: false,
+    fabric_enabled: false,
+    hermes_enabled: false
+  )
 end
