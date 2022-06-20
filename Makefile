@@ -16,3 +16,6 @@ gen:
 
 release:
 	scripts/release.sh
+
+publish:
+	bundle exec pod trunk push ReactNative-Binary.podspec --allow-warnings

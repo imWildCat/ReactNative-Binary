@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - 'releases/**'
+      - "releases/**"
 jobs:
   build:
     name: Release
@@ -23,3 +23,9 @@ jobs:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           make release
+      - name: "Publish to CocoaPods"
+        shell: bash
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          make publish
