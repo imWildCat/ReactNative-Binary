@@ -1,6 +1,6 @@
 # ReactNative-Binary
 
-Pre-built React Native xcframeworks to save the time of humans.
+Pre-built React Native xcframeworks to save the time of humans, supporting iOS and Mac Catalyst.
 
 Inspired by <https://github.com/traveloka/ios-rn-prebuilt>.
 
