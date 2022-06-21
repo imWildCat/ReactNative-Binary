@@ -54,8 +54,8 @@ function create_xcframework() {
     fi
 
     xcodebuild -create-xcframework \
-      -framework $SRCROOT/$PROJECT-iphonesimulator.xcarchive/Products/Library/Frameworks/$basename \
       -framework $SRCROOT/$PROJECT-iphoneos.xcarchive/Products/Library/Frameworks/$basename \
+      -framework $SRCROOT/$PROJECT-iphonesimulator.xcarchive/Products/Library/Frameworks/$basename \
       -framework $SRCROOT/$PROJECT-maccatalyst.xcarchive/Products/Library/Frameworks/$basename \
       -output $SRCROOT/Frameworks/$framework_name.xcframework
 
