@@ -21,6 +21,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           make release
       - name: "Publish to CocoaPods"
