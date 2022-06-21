@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage                  = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework'
   s.author                    = 'imWildCat'
   s.license                   = { type: 'MIT', file: 'LICENSE' }
-  s.platforms                 = { ios: '13.0' }
+  s.platforms                 = { ios: '11.0' }
   s.source                    = {
     http: source
   }
