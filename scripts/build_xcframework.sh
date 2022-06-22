@@ -67,6 +67,8 @@ function create_xcframework() {
     cp -R $resources $SRCROOT/Frameworks/
   done
 
+  cp README.md Frameworks/
+  cp LICENSE Frameworks/
   tar -cvzf $PROJECT.tar.gz Frameworks
 }
 
