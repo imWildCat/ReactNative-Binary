@@ -3,7 +3,7 @@ version = '###VERSION###'
 source = '###SOURCE###'
 
 Pod::Spec.new do |s|
-  s.name                      = 'ReactNative-Binary-Debug'
+  s.name                      = 'ReactNative-Binary'
   s.version                   = version.to_s
   s.summary                   = 'React Native xcframeworks'
   s.description               = <<-DESC
