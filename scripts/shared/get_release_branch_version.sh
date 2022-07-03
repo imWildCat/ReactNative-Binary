@@ -4,7 +4,7 @@ react_native_version=$(cat frontend/package.json | grep react-native | head -1 |
 
 release_branch_version=$(echo "$BRANCH_NAME" | sed 's/releases\///g')
 
-if [[ $release_branch_version =~ ^$react_native_version ]]; then
+if [[ "$release_branch_version" != "$react_native_version"* ]]; then
   echo "release branch version ($release_branch_version) must begins with react_native_version ($release_branch_version)" >&2
   exit 1
 else
