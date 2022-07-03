@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-exclude_frameworks=("PINCache" "PINOperation" "PINRemoteImage" "Pods_DummyApp" "DummyApp")
+excluded_frameworks=("Pods_DummyApp" "DummyApp")
 
 function archive() {
   xcodebuild archive \
@@ -49,7 +49,7 @@ function create_xcframework() {
     basename=$(basename $framework)
     framework_name=$(basename $framework .framework)
 
-    if [[ " ${exclude_frameworks[*]} " =~ " ${framework_name} " ]]; then
+    if [[ " ${excluded_frameworks[*]} " =~ " ${framework_name} " ]]; then
       continue
     fi
 
