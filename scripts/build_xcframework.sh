@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+CONFIGURATION=$1
+
+if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
+  echo "Usage: $0 <Debug/Release>"
+  exit 1
+fi
+
 set -euo pipefail
 
 excluded_frameworks=("Pods_DummyApp" "DummyApp")
@@ -8,6 +15,7 @@ function archive() {
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
+    -configuration "$CONFIGURATION" \
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
     -sdk iphonesimulator \
     ENABLE_BITCODE=NO \
@@ -20,6 +28,7 @@ function archive() {
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
+    -configuration "$CONFIGURATION" \
     -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
     -sdk iphoneos \
     ENABLE_BITCODE=NO \
@@ -32,6 +41,7 @@ function archive() {
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
+    -configuration "$CONFIGURATION" \
     -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
     -sdk macosx \
     ENABLE_BITCODE=NO \
@@ -72,7 +82,7 @@ function create_xcframework() {
 
   cp README.md Frameworks/
   cp LICENSE Frameworks/
-  tar -cvzf $PROJECT.tar.gz Frameworks
+  tar -cvzf ReactNative-binary-"$CONFIGURATION".tar.gz Frameworks
 }
 
 function clean() {

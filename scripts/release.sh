@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+
+CONFIGURATION=$1
+
+if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
+  echo "Usage: $0 <Debug/Release>"
+  exit 1
+fi
+
 function distribute() {
   version_tag="v$1"
   repo_name="imWildCat/ReactNativeAppleBinaryFramework"

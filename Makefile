@@ -2,7 +2,7 @@ export SRCROOT = $(shell pwd)
 export PROJECT = DummyApp
 
 archive:
-	scripts/build_xcframework.sh
+	scripts/build_xcframework.sh $(CONFIGURATION)
 
 prepare:
 	brew bundle install --no-lock --file Brewfile
@@ -16,7 +16,7 @@ gen:
 	scripts/set_up_xcode_env.sh
 
 release:
-	scripts/release.sh
+	scripts/release.sh $(CONFIGURATION)
 
 publish:
 	bundle exec pod trunk push ReactNative-Binary.podspec --allow-warnings
@@ -27,3 +27,6 @@ clean:
 	rm -rf DummyApp.xcworkspace
 	rm -rf DummyApp.xcodeproj
 	rm -rf ./DerivedData
+
+validate-archive:
+	scripts/validate_archive_size.sh $(FILE_PATH)
