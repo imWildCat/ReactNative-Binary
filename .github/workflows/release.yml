@@ -39,6 +39,7 @@ jobs:
         with:
           name: ReactNative-binary-Debug
           path: ReactNative-binary-Release.tar.gz
+
   publish-cocoapods:
     name: "Publish to CocoaPods"
     runs-on: macos-12
@@ -52,7 +53,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
-
+      - uses: ./.github/workflows/setup
+        name: Set up
       - uses: actions/download-artifact@v3
         name: "Download Debug archive"
         with:
