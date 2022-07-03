@@ -4,10 +4,16 @@ inputs:
   build-configuration:
     description: "Build configuration of Xcode, either Debug or Release"
     required: true
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: false
+    default: 'World'
 runs:
   using: "composite"
   steps:
-    - name: "Echo input"
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - name: "echo ${{ inputs.build-configuration }}"
       shell: bash
       run: echo ${{ inputs.build-configuration }}
     - name: Archive
