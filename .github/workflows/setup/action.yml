@@ -23,6 +23,10 @@ runs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
     - name: Prepare
       shell: bash
       run: |

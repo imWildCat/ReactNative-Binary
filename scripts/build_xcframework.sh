@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-exclude_frameworks=("PINCache" "PINOperation" "PINRemoteImage" "Pods_DummyApp" "DummyApp")
+excluded_frameworks=("Pods_DummyApp" "DummyApp")
 
 function archive() {
   xcodebuild archive \
@@ -10,6 +10,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
     -sdk iphonesimulator \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
@@ -21,6 +22,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
     -sdk iphoneos \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
@@ -32,6 +34,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
     -sdk macosx \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
@@ -49,7 +52,7 @@ function create_xcframework() {
     basename=$(basename $framework)
     framework_name=$(basename $framework .framework)
 
-    if [[ " ${exclude_frameworks[*]} " =~ " ${framework_name} " ]]; then
+    if [[ " ${excluded_frameworks[*]} " =~ " ${framework_name} " ]]; then
       continue
     fi
 

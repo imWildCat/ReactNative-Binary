@@ -182,3 +182,4 @@ DerivedData/
 DummyApp.tar.gz
 
 Frameworks/
+.xcode.env.local
