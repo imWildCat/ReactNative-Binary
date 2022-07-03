@@ -59,14 +59,17 @@ jobs:
         name: "Download Debug archive"
         with:
           name: "ReactNative-binary-Debug"
-          path: ./ReactNative-binary-Debug.tar.gz
-
+          path: ./ReactNative-binary-Debug
       - uses: actions/download-artifact@v3
         name: "Download Release archive"
         with:
           name: "ReactNative-binary-Release"
-          path: ./ReactNative-binary-Release.tar.gz
-
+          path: ./ReactNative-binary-Release
+      - name: "Move archives"
+        shell: bash
+        run: |
+          mv ReactNative-binary-Debug/ReactNative-binary-Debug.tar.gz .
+          mv ReactNative-binary-Release/ReactNative-binary-Release.tar.gz .
       - name: "Validate archive sizes"
         shell: bash
         run: |
