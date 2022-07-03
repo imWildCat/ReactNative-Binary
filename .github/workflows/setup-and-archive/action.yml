@@ -7,9 +7,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: ../setup
+    - uses: ./.github/workflows/setup
       name: Setup
-    - uses: ../archive
+    - uses: ./.github/workflows/archive
       name: Archive
       with:
         build-configuration: "{{ inputs.build-configuration }}"
