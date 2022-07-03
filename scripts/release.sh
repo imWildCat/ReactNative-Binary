@@ -1,46 +1,51 @@
 #!/usr/bin/env bash
 
-CONFIGURATION=$1
-
-if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
-  echo "Usage: $0 <Debug/Release>"
-  exit 1
-fi
-
-function distribute() {
+# This function assumes that `Release` is run before `Debug`
+function prepare_release() {
   version_tag="v$1"
+  configuration="$2"
   repo_name="imWildCat/ReactNativeAppleBinaryFramework"
-  archive_name="ReactNative-Binary-$version_tag.tar.gz"
+  archive_name="ReactNative-Binary-$version_tag-$configuration.tar.gz"
 
-  if [ $(gh release view "$version_tag") ]; then
+  if [ $(gh release view "$version_tag") ] && [ "$configuration" == "Release" ]; then
     gh release delete "$version_tag"
+    echo "Deleted $version_tag because it is Release node"
   fi
 
-  gh release create "$version_tag" --generate-notes -R $repo_name
-  mv "$PROJECT".tar.gz "$archive_name"
-  gh release upload "$version_tag" "$archive_name" -R $repo_name && rm -rf "$archive_name"
+  # if configuration is Release
+  if [ "$configuration" == "Release" ]; then
+    cp ReactNative-Binary.podspec ReactNative-Binary-Debug.podspec
+    gh release create "$version_tag" --generate-notes -R $repo_name
+  fi
 
-  sed -i '' "s/version = '[^']*'/version = '$1'/g" ReactNative-Binary.podspec
+  mv "ReactNative-binary-$configuration".tar.gz "$archive_name"
+
+  echo "Files:"
+  ls -lh
+
+  gh release upload "$version_tag" "$archive_name" -R $repo_name && rm -rf "$archive_name"
+  echo "Uploaded $archive_name"
+  ls -lh
+
+  if [ "$configuration" == "Debug" ]; then
+    spec_file_name="ReactNative-Binary-Debug.podspec"
+  else
+    spec_file_name="ReactNative-Binary.podspec"
+  fi
+
+  sed -i '' "s/version = '[^']*'/version = '$1'/g" "$spec_file_name" || exit 1
   download_url="https://github.com/$repo_name/releases/download/$version_tag/$archive_name"
   escaped_download_url=$(printf '%s\n' $download_url | sed -e 's/[\/&]/\\&/g')
-  sed -i '' "s/source = '[^']*'/source = '$escaped_download_url'/g" ReactNative-Binary.podspec
-
-  git config user.email "bot@wildcat.io"
-  git config user.name "WildCat Bot"
-
-  git add ReactNative-Binary.podspec
-  git commit -m "Update ReactNative-Binary.pospec version to $version_tag [skip ci]"
-  git push
-  # pod repo push imWildCat ReactNative-Binary.podspec --verbose --allow-warnings --skip-tests
+  sed -i '' "s/source = '[^']*'/source = '$escaped_download_url'/g" "$spec_file_name" || exit 1
 }
 
-react_native_version=$(cat frontend/package.json | grep react-native | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]' | sed 's/[^0-9.]//g')
+SCRIPT_PATH=$(dirname "${BASH_SOURCE[0]}")
 
-release_branch_version=$(echo "$BRANCH_NAME" | sed 's/releases\///g')
+# shellcheck source=./shared/get_release_branch_version.sh
+source "$SCRIPT_PATH/get_release_branch_version.sh"
 
-if [[ $release_branch_version =~ ^$react_native_version ]]; then
-  distribute "$release_branch_version"
-else
-  echo "release branch version must begins with react_native_version" >&2
-  exit 1
-fi
+prepare_release "$release_branch_version" Release
+prepare_release "$release_branch_version" Debug
+
+echo "git status:"
+git status

@@ -16,10 +16,12 @@ gen:
 	scripts/set_up_xcode_env.sh
 
 release:
-	scripts/release.sh $(CONFIGURATION)
+	scripts/release.sh
+	scripts/release_commit_podspec.sh
 
 publish:
 	bundle exec pod trunk push ReactNative-Binary.podspec --allow-warnings
+	bundle exec pod trunk push ReactNative-Binary-Debug.podspec --allow-warnings
 
 clean:
 	rm -rf ./build
