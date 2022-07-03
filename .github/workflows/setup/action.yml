@@ -1,14 +1,36 @@
 name: "Project Setup"
 description: "Install dependencies"
+inputs:
+  xcode-configuration:
+    description: "Build configuration of Xcode, either Debug or Release"
+    required: true
 runs:
   using: "composite"
   steps:
+    - name: Brew install
+      run: make brew-install
+      shell: bash
+
     - uses: actions/cache@v3
       with:
         path: Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
+
+    - name: Get ccache cache directory path
+      if: "${{inputs.xcode-configuration}} == 'Debug'"
+      id: ccache-cache-dir-path
+      run: echo "::set-output name=dir::$(ccache -sv | grep "Cache directory" | awk '{print $3}')"
+      shell: bash
+
+    - uses: actions/cache@v3
+      if: "${{inputs.xcode-configuration}} == 'Debug'"
+      with:
+        path: ${{ steps.ccache-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-ccache-
 
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path

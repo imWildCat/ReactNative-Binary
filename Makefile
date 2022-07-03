@@ -4,8 +4,10 @@ export PROJECT = DummyApp
 archive:
 	scripts/build_xcframework.sh $(CONFIGURATION)
 
-prepare:
+brew-install:
 	brew bundle install --no-lock --file Brewfile
+
+prepare:
 	bundle install
 	cd frontend && yarn install
 
