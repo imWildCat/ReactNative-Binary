@@ -5,9 +5,47 @@ on:
     branches:
       - "releases/**"
 jobs:
-  build:
-    name: Release
+  build-debug:
+    name: "[Debug] Build"
     runs-on: macos-12
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup-and-archive
+        name: Set up and Archive
+        with:
+          xcode-configuration: Debug
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ReactNative-binary-Debug
+          path: ReactNative-binary-Debug.tar.gz
+
+  build-release:
+    name: "[Release] Build"
+    runs-on: macos-12
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup-and-archive
+        name: Set up and Archive
+        with:
+          xcode-configuration: Release
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ReactNative-binary-Debug
+          path: ReactNative-binary-Release.tar.gz
+
+  publish-cocoapods:
+    name: "Publish to CocoaPods"
+    runs-on: macos-12
+    needs:
+      - build-debug
+      - build-release
     if: "!contains(github.event.commits[0].message, '[skip ci]')"
 
     steps:
@@ -16,9 +54,25 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
       - uses: ./.github/workflows/setup
-      - uses: ./.github/workflows/archive
+        name: Set up
+      - uses: actions/download-artifact@v3
+        name: "Download Debug archive"
         with:
-          xcode-configuration: Release
+          name: "ReactNative-binary-Debug"
+          path: ./ReactNative-binary-Debug.tar.gz
+
+      - uses: actions/download-artifact@v3
+        name: "Download Release archive"
+        with:
+          name: "ReactNative-binary-Release"
+          path: ./ReactNative-binary-Release.tar.gz
+
+      - name: "Validate archive sizes"
+        shell: bash
+        run: |
+          make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
+          make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
+
       - name: "Run release script"
         shell: bash
         env:

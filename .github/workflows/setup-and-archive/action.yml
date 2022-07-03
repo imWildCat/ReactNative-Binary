@@ -9,6 +9,8 @@ runs:
   steps:
     - uses: ./.github/workflows/setup
       name: Setup
+      with:
+        xcode-configuration: ${{ inputs.xcode-configuration }}
     - uses: ./.github/workflows/archive
       name: Archive
       with:

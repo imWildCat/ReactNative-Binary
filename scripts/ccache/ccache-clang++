@@ -1,0 +1,20 @@
+#!/bin/bash --noprofile
+
+# References:
+# 1. https://reactnative.dev/docs/build-speed
+# 2. https://pspdfkit.com/blog/2015/ccache-for-fun-and-profit
+
+if type -p ccache >/dev/null 2>&1; then
+  export CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros
+  export CCACHE_FILECLONE=true
+  export CCACHE_DEPEND=true
+  export CCACHE_INODECACHE=true
+
+  current_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  cache_dir="$current_path/../../build/ccache_dir"
+  export CCACHE_DIR="$cache_dir"
+
+  exec ccache /usr/bin/clang++ "$@"
+else
+  exec clang "$@"
+fi
