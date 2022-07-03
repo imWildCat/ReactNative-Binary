@@ -44,7 +44,9 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "SCRIPT_DIR: $SCRIPT_DIR"
 
 # shellcheck source=./shared/get_release_branch_version.sh
-source "$SCRIPT_DIR/get_release_branch_version.sh"
+source "$SCRIPT_DIR/shared/get_release_branch_version.sh"
+
+echo "release_branch_version: $release_branch_version"
 
 prepare_release "$release_branch_version" Release
 prepare_release "$release_branch_version" Debug
