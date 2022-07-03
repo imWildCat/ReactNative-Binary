@@ -21,7 +21,7 @@ jobs:
       - name: Upload to artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: xcframeworks-Debug
+          name: ReactNative-binary-Debug
           path: ReactNative-binary-Debug.tar.gz
 
   build-release:
@@ -37,7 +37,7 @@ jobs:
       - name: Upload to artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: xcframeworks-Release
+          name: ReactNative-binary-Debug
           path: ReactNative-binary-Release.tar.gz
 
   validate-archives:
@@ -53,13 +53,13 @@ jobs:
       - uses: actions/download-artifact@v3
         name: "Download Debug archive"
         with:
-          name: "ReactNative-binary-Debug.tar.gz"
+          name: "ReactNative-binary-Debug"
           path: ./ReactNative-binary-Debug.tar.gz
 
       - uses: actions/download-artifact@v3
         name: "Download Release archive"
         with:
-          name: "ReactNative-binary-Release.tar.gz"
+          name: "ReactNative-binary-Release"
           path: ./ReactNative-binary-Release.tar.gz
 
       - name: "Validate archive sizes"
