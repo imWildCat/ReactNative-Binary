@@ -10,6 +10,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
     -sdk iphonesimulator \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
@@ -21,6 +22,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
     -sdk iphoneos \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
@@ -32,6 +34,7 @@ function archive() {
     -scheme $PROJECT \
     -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
     -sdk macosx \
+    ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
