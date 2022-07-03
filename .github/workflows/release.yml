@@ -18,7 +18,7 @@ jobs:
       - uses: ./.github/workflows/setup
       - uses: ./.github/workflows/archive
         with:
-          build-configuration: Release
+          xcode-configuration: Release
       - name: "Run release script"
         shell: bash
         env:

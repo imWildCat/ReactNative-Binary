@@ -1,18 +1,18 @@
 name: "Archive"
 description: "Xcode Archive and generate xcframeworks"
 inputs:
-  build-configuration:
+  xcode-configuration:
     description: "Build configuration of Xcode, either Debug or Release"
     required: true
     default: Release
 runs:
   using: "composite"
   steps:
-    - name: "echo ${{ inputs.build-configuration }}"
+    - name: "echo ${{ inputs.xcode-configuration }}"
       shell: bash
-      run: echo ${{ inputs.build-configuration }}
+      run: echo ${{ inputs.xcode-configuration }}
     - name: Archive
       shell: bash
       run: |
-        echo inputs.build-configuration: "{{ inputs.build-configuration }}"
-        make CONFIGURATION="${{ inputs.build-configuration }}" archive
+        echo inputs.xcode-configuration: "{{ inputs.xcode-configuration }}"
+        make CONFIGURATION="${{ inputs.xcode-configuration }}" archive

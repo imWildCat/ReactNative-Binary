@@ -1,7 +1,7 @@
 name: "Set up and Archive"
 description: "Set up and archive the project"
 inputs:
-  build-configuration:
+  xcode-configuration:
     description: "Build configuration of Xcode, either Debug or Release"
     required: true
 runs:
@@ -12,9 +12,9 @@ runs:
     - uses: ./.github/workflows/archive
       name: Archive
       with:
-        build-configuration: "{{ inputs.build-configuration }}"
+        xcode-configuration: "{{ inputs.xcode-configuration }}"
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: "ReactNative-binary-{{ inputs.build-configuration }}"
-        path: "ReactNative-binary-{{ inputs.build-configuration }}.tar.gz"
+        name: "ReactNative-binary-{{ inputs.xcode-configuration }}"
+        path: "ReactNative-binary-{{ inputs.xcode-configuration }}.tar.gz"
