@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash --noprofile
 
 # References:
 # 1. https://reactnative.dev/docs/build-speed
@@ -9,6 +9,11 @@ if type -p ccache >/dev/null 2>&1; then
   export CCACHE_FILECLONE=true
   export CCACHE_DEPEND=true
   export CCACHE_INODECACHE=true
+
+  current_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  cache_dir="$current_path/../../build/ccache_dir"
+  export CCACHE_DIR="$cache_dir"
+
   exec ccache /usr/bin/clang++ "$@"
 else
   exec clang "$@"

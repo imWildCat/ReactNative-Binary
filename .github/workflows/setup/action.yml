@@ -18,19 +18,10 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Get ccache cache directory path
-      if: "${{inputs.xcode-configuration}} == 'Debug'"
-      id: ccache-cache-dir-path
-      run: |
-        ccache_dir=$(ccache -sv | grep "Cache directory" | awk '{print $3}')
-        echo "ccache_dir=$ccahe_dir"
-        echo "::set-output name=dir::$ccache_dir"
-      shell: bash
-
     - uses: actions/cache@v3
       if: "${{inputs.xcode-configuration}} == 'Debug'"
       with:
-        path: ${{ steps.ccache-cache-dir-path.outputs.dir }}
+        path: build/ccache_dir
         key: ${{ runner.os }}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-ccache-
