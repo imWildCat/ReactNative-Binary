@@ -27,3 +27,6 @@ clean:
 	rm -rf DummyApp.xcworkspace
 	rm -rf DummyApp.xcodeproj
 	rm -rf ./DerivedData
+
+validate-archive:
+	scripts/validate_archive_size.sh $(FILE_PATH)

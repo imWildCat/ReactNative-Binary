@@ -14,7 +14,7 @@ runs:
       with:
         build-configuration: "{{ inputs.build-configuration }}"
     - name: Upload to artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: "xcframeworks-{{ inputs.build-configuration }}"
-        path: DummyApp.tar.gz
+        name: "ReactNative-binary-{{ inputs.build-configuration }}"
+        path: "ReactNative-binary-{{ inputs.build-configuration }}.tar.gz"
