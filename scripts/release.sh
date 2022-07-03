@@ -39,10 +39,12 @@ function prepare_release() {
   sed -i '' "s/source = '[^']*'/source = '$escaped_download_url'/g" "$spec_file_name" || exit 1
 }
 
-SCRIPT_PATH=$(dirname "${BASH_SOURCE[0]}")
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo "SCRIPT_DIR: $SCRIPT_DIR"
 
 # shellcheck source=./shared/get_release_branch_version.sh
-source "$SCRIPT_PATH/get_release_branch_version.sh"
+source "$SCRIPT_DIR/get_release_branch_version.sh"
 
 prepare_release "$release_branch_version" Release
 prepare_release "$release_branch_version" Debug

@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-VERSION_TAG=$1
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-if [ -z "$VERSION_TAG" ]; then
-  echo "Usage: $0 <version tag>"
-  exit 1
-fi
+echo "SCRIPT_DIR: $SCRIPT_DIR"
+
+# shellcheck source=./shared/get_release_branch_version.sh
+source "$SCRIPT_DIR/shared/get_release_branch_version.sh"
 
 git config user.email "bot@wildcat.io"
 git config user.name "WildCat Bot"
 
 git add ReactNative-Binary.podspec || exit 1
 git add ReactNative-Binary-Debug.podspec || exit 1
-git commit -m "Update podspecs version to $VERSION_TAG [skip ci]" || exit 1
+git commit -m "Update podspecs version to $release_branch_version [skip ci]" || exit 1
 git push || exit 1
