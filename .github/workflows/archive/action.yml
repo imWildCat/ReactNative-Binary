@@ -9,7 +9,7 @@ runs:
   steps:
     - name: "Echo input"
       shell: bash
-      run: "{{ inputs.build-configuration }}"
+      run: echo {{ inputs.build-configuration }}
     - name: Archive
       shell: bash
       run: |
