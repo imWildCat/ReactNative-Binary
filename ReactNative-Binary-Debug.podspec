@@ -1,6 +1,6 @@
 version = '0.69.1'
 
-source = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework/releases/download/v0.69.1/ReactNative-Binary-v0.69.1-Release.tar.gz'
+source = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework/releases/download/v0.69.1/ReactNative-Binary-v0.69.1-Debug.tar.gz'
 
 Pod::Spec.new do |s|
   s.name                      = 'ReactNative-Binary'
