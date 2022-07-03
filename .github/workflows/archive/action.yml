@@ -8,11 +8,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: "echo ${{ inputs.xcode-configuration }}"
-      shell: bash
-      run: echo ${{ inputs.xcode-configuration }}
     - name: Archive
       shell: bash
       run: |
-        echo inputs.xcode-configuration: "{{ inputs.xcode-configuration }}"
         make CONFIGURATION="${{ inputs.xcode-configuration }}" archive

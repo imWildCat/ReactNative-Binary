@@ -12,9 +12,9 @@ runs:
     - uses: ./.github/workflows/archive
       name: Archive
       with:
-        xcode-configuration: "{{ inputs.xcode-configuration }}"
+        xcode-configuration: "${{ inputs.xcode-configuration }}"
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: "ReactNative-binary-{{ inputs.xcode-configuration }}"
-        path: "ReactNative-binary-{{ inputs.xcode-configuration }}.tar.gz"
+        name: "ReactNative-binary-${{ inputs.xcode-configuration }}"
+        path: "ReactNative-binary-${{ inputs.xcode-configuration }}.tar.gz"
