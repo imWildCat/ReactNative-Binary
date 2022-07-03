@@ -18,3 +18,10 @@ jobs:
         name: Setup
       - uses: ./.github/workflows/archive
         name: Archive
+        with:
+          build-configuration: Release
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcframeworks-Release
+          path: DummyApp.tar.gz

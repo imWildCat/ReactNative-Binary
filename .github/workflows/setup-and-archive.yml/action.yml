@@ -1,0 +1,20 @@
+name: "Set up and Archive"
+description: "Set up and archive the project"
+inputs:
+  build-configuration:
+    description: "Build configuration of Xcode, either Debug or Release"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: ../setup
+      name: Setup
+    - uses: ../archive
+      name: Archive
+      with:
+        build-configuration: "{{ inputs.build-configuration }}"
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: "xcframeworks-{{ inputs.build-configuration }}"
+        path: DummyApp.tar.gz

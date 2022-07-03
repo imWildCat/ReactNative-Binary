@@ -17,6 +17,8 @@ jobs:
           token: ${{ secrets.PAT }}
       - uses: ./.github/workflows/setup
       - uses: ./.github/workflows/archive
+        with:
+          build-configuration: Release
       - name: "Run release script"
         shell: bash
         env:

@@ -180,6 +180,7 @@ DerivedData/
 
 *.xcarchive
 DummyApp.tar.gz
+ReactNative-binary-*.tar.gz
 
 Frameworks/
 .xcode.env.local
