@@ -10,4 +10,5 @@ runs:
     - name: Archive
       shell: bash
       run: |
-        make CONFIGURATION=${{ inputs.build-configuration }} archive
+        echo inputs.build-configuration: "{{ inputs.build-configuration }}"
+        make CONFIGURATION="${{ inputs.build-configuration }}" archive
