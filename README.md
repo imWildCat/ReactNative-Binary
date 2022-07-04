@@ -17,7 +17,8 @@ Inspired by <https://github.com/traveloka/ios-rn-prebuilt>.
 #### CocoaPods
 
 ```rb
-pod 'ReactNative-Binary'
+pod 'ReactNative-Binary', configuration: 'Release'
+pod 'ReactNative-Binary-Debug', configuration: 'Debug' # loading debug support
 ```
 
 #### Swift Package
