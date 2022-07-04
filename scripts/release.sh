@@ -7,12 +7,6 @@ function prepare_release() {
   repo_name="imWildCat/ReactNativeAppleBinaryFramework"
   archive_name="ReactNative-Binary-$version_tag-$configuration.tar.gz"
 
-  if [ $(gh release view "$version_tag") ] && [ "$configuration" == "Release" ]; then
-    gh release delete "$version_tag"
-    echo "Deleted $version_tag because it is Release node"
-  fi
-
-  # if configuration is Release
   if [ "$configuration" == "Release" ]; then
     cp ReactNative-Binary.podspec ReactNative-Binary-Debug.podspec
     gh release create "$version_tag" --generate-notes -R $repo_name
@@ -29,6 +23,8 @@ function prepare_release() {
 
   if [ "$configuration" == "Debug" ]; then
     spec_file_name="ReactNative-Binary-Debug.podspec"
+
+    sed -i '' "s/'ReactNative-Binary'/'ReactNative-Binary-Debug'/g" "$spec_file_name" || exit 1
   else
     spec_file_name="ReactNative-Binary.podspec"
   fi
@@ -47,6 +43,11 @@ echo "SCRIPT_DIR: $SCRIPT_DIR"
 source "$SCRIPT_DIR/shared/get_release_branch_version.sh"
 
 echo "release_branch_version: $release_branch_version"
+
+if [ $(gh release view "$version_tag") ]; then
+  gh release delete "$version_tag"
+  echo "Deleted $version_tag because it is Release mode"
+fi
 
 prepare_release "$release_branch_version" Release
 prepare_release "$release_branch_version" Debug
