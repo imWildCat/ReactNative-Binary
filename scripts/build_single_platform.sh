@@ -25,20 +25,36 @@ fi
 set -euo pipefail
 
 function archive() {
+  if [ "$PLATFORM" == "maccatalyst" ]; then
+    SUPPORTS_MACCATALYST="YES"
+    SDK="macosx"
+  else
+    SUPPORTS_MACCATALYST="NO"
+    SDK=$PLATFORM
+  fi
+
   xcodebuild archive \
     -workspace $PROJECT.xcworkspace \
     -scheme $PROJECT \
     -configuration "$CONFIGURATION" \
     -archivePath $SRCROOT/$PROJECT-$PLATFORM.xcarchive \
-    -sdk $PLATFORM \
+    -sdk "$SDK" \
     ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
-    CODE_SIGNING_REQUIRED=NO | xcbeautify
+    CODE_SIGNING_REQUIRED=NO \
+    SUPPORTS_MACCATALYST="$SUPPORTS_MACCATALYST" | xcbeautify
 }
 
 archive
 
-zip -r $OUT $SRCROOT/$PROJECT-$PLATFORM.xcarchive/Products/Library/Frameworks
+# Get absolute path of $OUT
+OUT=$(pwd)/$OUT
+
+pushd "$SRCROOT/$PROJECT-$PLATFORM.xcarchive/Products/Library/Frameworks" || exit 1
+
+tar -cvf "$OUT" ./*
+
+popd || exit 1

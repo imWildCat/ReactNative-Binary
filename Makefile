@@ -5,7 +5,7 @@ archive:
 	scripts/build_xcframework.sh $(CONFIGURATION)
 
 archive-platform:
-	scripts/build_single_platform.sh $(CONFIGURATION) $(PLATFORM) $(PLATFORM).zip
+	scripts/build_single_platform.sh $(CONFIGURATION) $(PLATFORM) $(PLATFORM).tar.gz
 
 brew-install:
 	brew bundle install --no-lock --file Brewfile

@@ -185,4 +185,4 @@ ReactNative-binary-*.tar.gz
 Frameworks/
 .xcode.env.local
 
-*.zip
+*.tar.gz
