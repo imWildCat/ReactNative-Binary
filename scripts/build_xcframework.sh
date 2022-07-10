@@ -49,8 +49,6 @@ function create_xcframework() {
 }
 
 function clean() {
-  rm -rf $SRCROOT/$PROJECT-iphoneos.xcarchive
-  rm -rf $SRCROOT/$PROJECT-iphonesimulator.xcarchive
   rm -rf $SRCROOT/Frameworks
 }
 
@@ -62,4 +60,4 @@ unzip_archives iphonesimulator $CONFIGURATION
 unzip_archives maccatalyst $CONFIGURATION
 
 create_xcframework
-# clean
+clean

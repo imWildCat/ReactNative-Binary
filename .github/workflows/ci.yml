@@ -27,63 +27,14 @@ jobs:
           xcode-configuration: ${{ matrix.xcode-configuration }}
           platform: ${{ matrix.platform }}
 
-  # build-debug:
-  #   name: "[Debug] Build"
-  #   runs-on: macos-12
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - uses: ./.github/workflows/setup-and-archive
-  #       name: Set up and Archive
-  #       with:
-  #         xcode-configuration: Debug
-  #     - name: Upload to artifacts
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: ReactNative-binary-Debug
-  #         path: ReactNative-binary-Debug.tar.gz
-
-  # build-release:
-  #   name: "[Release] Build"
-  #   runs-on: macos-12
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - uses: ./.github/workflows/setup-and-archive
-  #       name: Set up and Archive
-  #       with:
-  #         xcode-configuration: Release
-  #     - name: Upload to artifacts
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: ReactNative-binary-Debug
-  #         path: ReactNative-binary-Release.tar.gz
-
-  validate-archives:
-    name: "Validate archives from both Debug and Release"
+  create-xcframework-archives:
+    name: "Create xcframeworks"
     runs-on: macos-12
     needs:
       - build-matrix
-      # - build-release
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
-        name: "Download Debug archive"
-        with:
-          name: "ReactNative-binary-Debug"
-          path: ./ReactNative-binary-Debug.tar.gz
-
-      - uses: actions/download-artifact@v3
-        name: "Download Release archive"
-        with:
-          name: "ReactNative-binary-Release"
-          path: ./ReactNative-binary-Release.tar.gz
-
-      - name: "Validate archive sizes"
-        shell: bash
-        run: |
-          make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
-          make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
+      - uses: ./.github/workflows/archive
+        name: Set up and Build xcframework Archive

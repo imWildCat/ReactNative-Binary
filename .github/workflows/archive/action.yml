@@ -1,10 +1,5 @@
 name: "Archive"
 description: "Xcode Archive and generate xcframeworks"
-inputs:
-  xcode-configuration:
-    description: "Build configuration of Xcode, either Debug or Release"
-    required: true
-    default: Release
 runs:
   using: "composite"
   steps:
@@ -50,6 +45,12 @@ runs:
         mv ./iphonesimulator-binary-Debug/iphonesimulator-binary-Debug.tar.gz .
         mv ./iphonesimulator-binary-Release/iphonesimulator-binary-Release.tar.gz .
     - name: "Merge archives into xcframeworks"
+      shell: bash
+      run: |
+        CONFIGURATION=Debug make build-xcframework
+        CONFIGURATION=Release make build-xcframework
+
+    - name: "Validate file size"
       shell: bash
       run: |
         make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
