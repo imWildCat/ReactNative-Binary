@@ -15,7 +15,9 @@ function unzip_archives() {
   PLATFORM="$1"
   CONFIGURATION="$2"
 
-  tar zxvf "./$PLATFORM-binary-$CONFIGURATION.tar.gz" --directory ./"$PLATFORM"_"$CONFIGURATION"
+  mkdir -p ./build/"$PLATFORM"_"$CONFIGURATION"
+
+  tar zxvf "./$PLATFORM-binary-$CONFIGURATION.tar.gz" --directory ./build/"$PLATFORM"_"$CONFIGURATION"
 }
 
 
@@ -24,7 +26,7 @@ function create_xcframework() {
   mkdir $SRCROOT/Frameworks
 
   # Find frameworks
-  for framework in $(find ./iphonesimulator.xcarchive/Products/Library/Frameworks -type d -name "*.framework"); do
+  for framework in $(find ./build/iphoneos_$CONFIGURATION/ -type d -name "*.framework"); do
     basename=$(basename $framework)
     framework_name=$(basename $framework .framework)
 
@@ -33,9 +35,9 @@ function create_xcframework() {
     fi
 
     xcodebuild -create-xcframework \
-      -framework iphonesimulator_"$CONFIGURATION"/$basename \
-      -framework iphoneos_"$CONFIGURATION"/$basename \
-      -framework maccatalyst_"$CONFIGURATION"/$basename \
+      -framework ./build/iphonesimulator_"$CONFIGURATION"/$basename \
+      -framework ./build/iphoneos_"$CONFIGURATION"/$basename \
+      -framework ./build/maccatalyst_"$CONFIGURATION"/$basename \
       -output $SRCROOT/Frameworks/$framework_name.xcframework
 
     echo "Created xcframework: $framework_name.xcframework"
