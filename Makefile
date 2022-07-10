@@ -1,7 +1,7 @@
 export SRCROOT = $(shell pwd)
 export PROJECT = DummyApp
 
-archive:
+build-xcframework:
 	scripts/build_xcframework.sh $(CONFIGURATION)
 
 archive-platform:

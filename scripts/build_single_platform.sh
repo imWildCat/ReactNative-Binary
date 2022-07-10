@@ -4,8 +4,6 @@ CONFIGURATION=$1
 
 PLATFORM=$2
 
-OUT=$3
-
 if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
   echo "Usage: $0 <Debug/Release>"
   exit 1
@@ -16,11 +14,7 @@ if [ "$PLATFORM" != "iphoneos" ] && [ "$PLATFORM" != "iphonesimulator" ] && [ "$
   exit 1
 fi
 
-if [ -z "$OUT" ]; then
-  echo "OUT should be set"
-  echo "Usage: $0 <Debug/Release> <iphoneos/iphonesimulator/maccatalyst> <OUT>"
-  exit 1
-fi
+OUT="$PLATFORM-binary-$CONFIGURATION.tar.gz"
 
 set -euo pipefail
 

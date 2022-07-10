@@ -11,54 +11,20 @@ set -euo pipefail
 
 excluded_frameworks=("Pods_DummyApp" "DummyApp")
 
-function archive() {
-  xcodebuild archive \
-    -workspace $PROJECT.xcworkspace \
-    -scheme $PROJECT \
-    -configuration "$CONFIGURATION" \
-    -archivePath $SRCROOT/$PROJECT-iphonesimulator.xcarchive \
-    -sdk iphonesimulator \
-    ENABLE_BITCODE=NO \
-    SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 \
-    CODE_SIGNING_ALLOWED=NO \
-    CODE_SIGN_IDENTITY="" \
-    CODE_SIGNING_REQUIRED=NO | xcbeautify
+function unzip_archives() {
+  PLATFORM="$1"
+  CONFIGURATION="$2"
 
-  xcodebuild archive \
-    -workspace $PROJECT.xcworkspace \
-    -scheme $PROJECT \
-    -configuration "$CONFIGURATION" \
-    -archivePath $SRCROOT/$PROJECT-iphoneos.xcarchive \
-    -sdk iphoneos \
-    ENABLE_BITCODE=NO \
-    SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 \
-    CODE_SIGNING_ALLOWED=NO \
-    CODE_SIGN_IDENTITY="" \
-    CODE_SIGNING_REQUIRED=NO | xcbeautify
-
-  xcodebuild archive \
-    -workspace $PROJECT.xcworkspace \
-    -scheme $PROJECT \
-    -configuration "$CONFIGURATION" \
-    -archivePath $SRCROOT/$PROJECT-maccatalyst.xcarchive \
-    -sdk macosx \
-    ENABLE_BITCODE=NO \
-    SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 \
-    CODE_SIGNING_ALLOWED=NO \
-    CODE_SIGN_IDENTITY="" \
-    CODE_SIGNING_REQUIRED=NO \
-    SUPPORTS_MACCATALYST=YES | xcbeautify
+  tar zxvf "./$PLATFORM-binary-$CONFIGURATION.tar.gz" --directory ./"$PLATFORM"_"$CONFIGURATION"
 }
+
 
 function create_xcframework() {
   rm -rf $SRCROOT/Frameworks
   mkdir $SRCROOT/Frameworks
 
   # Find frameworks
-  for framework in $(find $SRCROOT/$PROJECT-iphonesimulator.xcarchive/Products/Library/Frameworks -type d -name "*.framework"); do
+  for framework in $(find ./iphonesimulator.xcarchive/Products/Library/Frameworks -type d -name "*.framework"); do
     basename=$(basename $framework)
     framework_name=$(basename $framework .framework)
 
@@ -67,17 +33,12 @@ function create_xcframework() {
     fi
 
     xcodebuild -create-xcframework \
-      -framework $SRCROOT/$PROJECT-iphoneos.xcarchive/Products/Library/Frameworks/$basename \
-      -framework $SRCROOT/$PROJECT-iphonesimulator.xcarchive/Products/Library/Frameworks/$basename \
-      -framework $SRCROOT/$PROJECT-maccatalyst.xcarchive/Products/Library/Frameworks/$basename \
+      -framework iphonesimulator_"$CONFIGURATION"/$basename \
+      -framework iphoneos_"$CONFIGURATION"/$basename \
+      -framework maccatalyst_"$CONFIGURATION"/$basename \
       -output $SRCROOT/Frameworks/$framework_name.xcframework
 
     echo "Created xcframework: $framework_name.xcframework"
-  done
-
-  # Find bundle resources
-  for resources in $(find $BUILT_PRODUCTS_DIR/../.. -type d -name "*.bundle"); do
-    cp -R $resources $SRCROOT/Frameworks/
   done
 
   cp README.md Frameworks/
@@ -94,6 +55,9 @@ function clean() {
 
 cd $SRCROOT
 
-archive
+unzip_archives iphoneos $CONFIGURATION
+unzip_archives iphonesimulator $CONFIGURATION
+unzip_archives maccatalyst $CONFIGURATION
+
 create_xcframework
-clean
+# clean

@@ -8,7 +8,49 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Archive
+    - uses: ./.github/workflows/setup
+      name: Set up
+    - uses: actions/download-artifact@v3
+      name: "Download Debug (iphoneos)"
+      with:
+        name: "iphoneos-binary-Debug"
+        path: ./iphoneos-binary-Debug
+    - uses: actions/download-artifact@v3
+      name: "Download Release (iphoneos)"
+      with:
+        name: "iphoneos-binary-Release"
+        path: ./iphoneos-binary-Release
+    - uses: actions/download-artifact@v3
+      name: "Download Debug (maccatalyst)"
+      with:
+        name: "maccatalyst-binary-Debug"
+        path: ./maccatalyst-binary-Debug
+    - uses: actions/download-artifact@v3
+      name: "Download Release (maccatalyst)"
+      with:
+        name: "maccatalyst-binary-Release"
+        path: ./maccatalyst-binary-Release
+    - uses: actions/download-artifact@v3
+      name: "Download Debug (iphonesimulator)"
+      with:
+        name: "iphonesimulator-binary-Debug"
+        path: ./iphonesimulator-binary-Debug
+    - uses: actions/download-artifact@v3
+      name: "Download Release (iphonesimulator)"
+      with:
+        name: "iphonesimulator-binary-Release"
+        path: ./iphonesimulator-binary-Release
+    - name: "Move archives"
       shell: bash
       run: |
-        make CONFIGURATION="${{ inputs.xcode-configuration }}" archive
+        mv ./iphoneos-binary-Debug/iphoneos-binary-Debug.tar.gz .
+        mv ./iphoneos-binary-Release/iphoneos-binary-Release.tar.gz .
+        mv ./maccatalyst-binary-Debug/maccatalyst-binary-Debug.tar.gz .
+        mv ./maccatalyst-binary-Release/maccatalyst-binary-Release.tar.gz .
+        mv ./iphonesimulator-binary-Debug/iphonesimulator-binary-Debug.tar.gz .
+        mv ./iphonesimulator-binary-Release/iphonesimulator-binary-Release.tar.gz .
+    - name: "Merge archives into xcframeworks"
+      shell: bash
+      run: |
+        make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
+        make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
