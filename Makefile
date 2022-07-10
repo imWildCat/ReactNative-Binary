@@ -4,6 +4,9 @@ export PROJECT = DummyApp
 archive:
 	scripts/build_xcframework.sh $(CONFIGURATION)
 
+archive-platform:
+	scripts/build_single_platform.sh $(CONFIGURATION) $(PLATFORM) $(PLATFORM).zip
+
 brew-install:
 	brew bundle install --no-lock --file Brewfile
 
