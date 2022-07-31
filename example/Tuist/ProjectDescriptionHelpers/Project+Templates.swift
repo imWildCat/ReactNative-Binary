@@ -13,7 +13,7 @@ extension Project {
                                  dependencies: additionalTargets.map { TargetDependency.target(name: $0) })
     targets += additionalTargets.flatMap { makeFrameworkTargets(name: $0, platform: platform) }
     return Project(name: name,
-                   organizationName: "tuist.io",
+                   organizationName: "WildCat.io",
                    targets: targets)
   }
 

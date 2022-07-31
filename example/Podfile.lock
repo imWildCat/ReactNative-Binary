@@ -1,0 +1,24 @@
+PODS:
+  - ReactNative-Binary (0.69.3):
+    - ReactNative-Binary/main (= 0.69.3)
+  - ReactNative-Binary-Debug (0.69.3):
+    - ReactNative-Binary-Debug/main (= 0.69.3)
+  - ReactNative-Binary-Debug/main (0.69.3)
+  - ReactNative-Binary/main (0.69.3)
+
+DEPENDENCIES:
+  - ReactNative-Binary
+  - ReactNative-Binary-Debug
+
+SPEC REPOS:
+  trunk:
+    - ReactNative-Binary
+    - ReactNative-Binary-Debug
+
+SPEC CHECKSUMS:
+  ReactNative-Binary: 79b928f19fdb44b7103c5f603190c5453884c0fe
+  ReactNative-Binary-Debug: e691254023dfa95f7039b3d1117b489cc55ef6ce
+
+PODFILE CHECKSUM: 579562a8fbe29557b89eca7b1527fadb5bd4987a
+
+COCOAPODS: 1.11.3

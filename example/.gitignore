@@ -70,3 +70,6 @@ Derived/
 Tuist/Dependencies
 
 .build/
+
+Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle
+.swiftpm/
