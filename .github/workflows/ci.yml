@@ -51,7 +51,7 @@ jobs:
           cd example
           make tuist-install
           make yarn-install
-          make bundle-ios
+          make bundle
           make gen
           make open
           make build

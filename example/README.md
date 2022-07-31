@@ -10,7 +10,7 @@ make tuist-install # Or grab `tuistenv` at: <https://github.com/tuist/tuist/rele
 make yarn-install
 
 # Build JavaScript bundle for React Native
-make bundle-ios
+make bundle
 
 # Generate Xcode project
 make gen
