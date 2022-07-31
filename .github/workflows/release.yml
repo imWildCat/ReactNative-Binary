@@ -5,77 +5,41 @@ on:
     branches:
       - "releases/**"
 jobs:
-  build-debug:
-    name: "[Debug] Build"
+  build-matrix:
     runs-on: macos-12
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
-
+    strategy:
+      matrix:
+        xcode-configuration:
+          - Debug
+          - Release
+        platform:
+          - iphonesimulator
+          - iphoneos
+          - maccatalyst
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup-and-archive
+      - uses: ./.github/workflows/archive-platform
         name: Set up and Archive
         with:
-          xcode-configuration: Debug
-      - name: Upload to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ReactNative-binary-Debug
-          path: ReactNative-binary-Debug.tar.gz
-
-  build-release:
-    name: "[Release] Build"
-    runs-on: macos-12
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup-and-archive
-        name: Set up and Archive
-        with:
-          xcode-configuration: Release
-      - name: Upload to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ReactNative-binary-Debug
-          path: ReactNative-binary-Release.tar.gz
+          xcode-configuration: ${{ matrix.xcode-configuration }}
+          platform: ${{ matrix.platform }}
 
   publish-cocoapods:
-    name: "Publish to CocoaPods"
+    name: "Create Xcframeworks and Publish to CocoaPods"
     runs-on: macos-12
     needs:
-      - build-debug
-      - build-release
+      - build-matrix
     if: "!contains(github.event.commits[0].message, '[skip ci]')"
-
+    # TODO: Investigate whether we can remove this if condition because of:
+    # <https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/>
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
-      - uses: ./.github/workflows/setup
-        name: Set up
-      - uses: actions/download-artifact@v3
-        name: "Download Debug archive"
-        with:
-          name: "ReactNative-binary-Debug"
-          path: ./ReactNative-binary-Debug
-      - uses: actions/download-artifact@v3
-        name: "Download Release archive"
-        with:
-          name: "ReactNative-binary-Release"
-          path: ./ReactNative-binary-Release
-      - name: "Move archives"
-        shell: bash
-        run: |
-          mv ReactNative-binary-Debug/ReactNative-binary-Debug.tar.gz .
-          mv ReactNative-binary-Release/ReactNative-binary-Release.tar.gz .
-      - name: "Validate archive sizes"
-        shell: bash
-        run: |
-          make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
-          make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
-
+      - uses: ./.github/workflows/bundle-xcframeworks
+        name: Set up and Build xcframeworks
       - name: "Run release script"
         shell: bash
         env:

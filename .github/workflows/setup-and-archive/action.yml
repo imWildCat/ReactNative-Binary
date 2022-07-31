@@ -11,8 +11,8 @@ runs:
       name: Setup
       with:
         xcode-configuration: ${{ inputs.xcode-configuration }}
-    - uses: ./.github/workflows/archive
-      name: Archive
+    - uses: ./.github/workflows/bundle-xcframeworks
+      name: Generate xcframeworks
       with:
         xcode-configuration: "${{ inputs.xcode-configuration }}"
     - name: Upload to artifacts

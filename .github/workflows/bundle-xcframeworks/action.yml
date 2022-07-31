@@ -1,5 +1,5 @@
 name: "Archive"
-description: "Xcode Archive and generate xcframeworks"
+description: "Generate xcframeworks"
 runs:
   using: "composite"
   steps:
