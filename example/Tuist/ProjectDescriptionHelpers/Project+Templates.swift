@@ -21,6 +21,15 @@ extension Project {
 
   /// Helper function to create a framework target and an associated unit test target
   private static func makeFrameworkTargets(name: String, platform: Platform) -> [Target] {
+    let resources: ResourceFileElements
+    if name == "ReactNativeBinaryExampleUI" {
+      resources = [
+        "Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle",
+      ]
+    } else {
+      resources = []
+    }
+
     let sources = Target(name: name,
                          platform: platform,
                          product: .framework,
@@ -28,7 +37,7 @@ extension Project {
                          deploymentTarget: .iOS(targetVersion: "13.0", devices: [.ipad, .iphone, .mac]),
                          infoPlist: .default,
                          sources: ["Targets/\(name)/Sources/**"],
-                         resources: [],
+                         resources: resources,
                          dependencies: [])
     let tests = Target(name: "\(name)Tests",
                        platform: platform,

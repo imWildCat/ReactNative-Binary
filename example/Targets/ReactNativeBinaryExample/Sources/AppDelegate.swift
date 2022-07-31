@@ -12,9 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .white
-        window?.rootViewController = viewController
+        let mainVC = MainViewController()
+        mainVC.view.backgroundColor = .white
+        window?.rootViewController = mainVC
         window?.makeKeyAndVisible()
         ReactNativeBinaryExampleKit.hello()
         ReactNativeBinaryExampleUI.hello()
