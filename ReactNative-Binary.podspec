@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.description               = <<-DESC
                                    React Native prebuilt xcframeworks for iOS
   DESC
-  s.homepage                  = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework'
+  s.homepage                  = 'https://github.com/imWildCat/ReactNative-Binary'
   s.author                    = 'imWildCat'
   s.license                   = { type: 'MIT', file: 'LICENSE' }
   s.platforms                 = { ios: '12.4' }
