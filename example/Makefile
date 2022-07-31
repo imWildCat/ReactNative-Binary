@@ -3,7 +3,7 @@ gen:
 	pod install
 
 bundle:
-	npx react-native bundle --platform ios --dev false --entry-file scripts/index.jsx --bundle-output example/Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle
+	cd scripts && yarn bundle-ios
 
 yarn-install:
-	cd ../frontend/ && yarn install
+	cd scripts && yarn
