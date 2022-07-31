@@ -27,7 +27,7 @@ pod 'ReactNative-Binary-Debug', configuration: 'Debug' # loading debug support
 
 ### Code Snippet
 
-Full example can be found at the [example](./) folder.
+Full example can be found at the [example](https://github.com/imWildCat/ReactNative-Binary/tree/main/example) folder.
 
 ```swift
 import React
