@@ -22,17 +22,20 @@ function archive() {
   if [ "$PLATFORM" == "maccatalyst" ]; then
     SUPPORTS_MACCATALYST="YES"
     SDK="macosx"
+    DESTINATION="generic/platform=OS X"
   else
     SUPPORTS_MACCATALYST="NO"
     SDK=$PLATFORM
+    DESTINATION="generic/platform=iOS"
   fi
 
   xcodebuild archive \
-    -workspace $PROJECT.xcworkspace \
-    -scheme $PROJECT \
+    -workspace "$PROJECT.xcworkspace" \
+    -scheme "$PROJECT" \
     -configuration "$CONFIGURATION" \
     -archivePath $SRCROOT/$PROJECT-$PLATFORM.xcarchive \
     -sdk "$SDK" \
+    -destination "$DESTINATION" \
     ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
