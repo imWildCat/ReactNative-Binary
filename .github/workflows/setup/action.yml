@@ -4,6 +4,9 @@ inputs:
   xcode-configuration:
     description: "Build configuration of Xcode, either Debug or Release"
     required: true
+  platform:
+    description: "Apple platform, either iphonesimulator, iphoneos, or maccatalyst"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -22,9 +25,9 @@ runs:
       if: "${{inputs.xcode-configuration}} == 'Debug'"
       with:
         path: build/ccache_dir
-        key: ${{ runner.os }}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}
+        key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-ccache-
+          ${{ runner.os }}-${{inputs.platform}}-ccache-
 
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path

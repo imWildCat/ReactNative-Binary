@@ -36,5 +36,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: ./.github/workflows/archive
+      - uses: ./.github/workflows/bundle-xcframeworks
         name: Set up and Build xcframework Archive
