@@ -7,63 +7,34 @@ on:
     branches: ["main"]
 
 jobs:
-  build-debug:
-    name: "[Debug] Build"
+  build-matrix:
     runs-on: macos-12
-
+    strategy:
+      matrix:
+        xcode-configuration:
+          - Debug
+          - Release
+        platform:
+          - iphonesimulator
+          - iphoneos
+          - maccatalyst
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup-and-archive
+      - uses: ./.github/workflows/archive-platform
         name: Set up and Archive
         with:
-          xcode-configuration: Debug
-      - name: Upload to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ReactNative-binary-Debug
-          path: ReactNative-binary-Debug.tar.gz
+          xcode-configuration: ${{ matrix.xcode-configuration }}
+          platform: ${{ matrix.platform }}
 
-  build-release:
-    name: "[Release] Build"
-    runs-on: macos-12
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup-and-archive
-        name: Set up and Archive
-        with:
-          xcode-configuration: Release
-      - name: Upload to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ReactNative-binary-Debug
-          path: ReactNative-binary-Release.tar.gz
-
-  validate-archives:
-    name: "Validate archives from both Debug and Release"
+  create-xcframework-archives:
+    name: "Create xcframeworks"
     runs-on: macos-12
     needs:
-      - build-debug
-      - build-release
+      - build-matrix
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
-        name: "Download Debug archive"
-        with:
-          name: "ReactNative-binary-Debug"
-          path: ./ReactNative-binary-Debug.tar.gz
-
-      - uses: actions/download-artifact@v3
-        name: "Download Release archive"
-        with:
-          name: "ReactNative-binary-Release"
-          path: ./ReactNative-binary-Release.tar.gz
-
-      - name: "Validate archive sizes"
-        shell: bash
-        run: |
-          make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
-          make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
+      - uses: ./.github/workflows/bundle-xcframeworks
+        name: Set up and Build xcframework Archive
