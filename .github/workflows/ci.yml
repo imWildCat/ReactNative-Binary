@@ -38,3 +38,20 @@ jobs:
 
       - uses: ./.github/workflows/bundle-xcframeworks
         name: Set up and Build xcframework Archive
+
+  build-example-project:
+    name: 'Build the example project'
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build the example project
+        run: |
+          cd example
+          make tuist-install
+          make yarn-install
+          make bundle
+          make gen
+          make open
+          make build

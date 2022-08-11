@@ -1,0 +1,36 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+def react_native_binary!
+  pod 'ReactNative-Binary', configuration: 'Release'
+  pod 'ReactNative-Binary-Debug', configuration: 'Debug'
+end
+
+target 'ReactNativeBinaryExample' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ReactNativeBinaryExample
+  react_native_binary!
+
+  target 'ReactNativeBinaryExampleKitTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ReactNativeBinaryExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ReactNativeBinaryExampleUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+end
+
+target 'ReactNativeBinaryExampleUI' do
+  use_frameworks!
+
+  react_native_binary!
+end

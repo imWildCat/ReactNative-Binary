@@ -27,6 +27,8 @@ pod 'ReactNative-Binary-Debug', configuration: 'Debug' # loading debug support
 
 ### Code Snippet
 
+Full example can be found at the [example](https://github.com/imWildCat/ReactNative-Binary/tree/main/example) folder.
+
 ```swift
 import React
 import UIKit
@@ -74,6 +76,7 @@ extension ReactNativeBaseVC: RCTBridgeDelegate {
 
 
 ```
+([example/Targets/ReactNativeBinaryExampleUI/Sources/MainViewController.swift](example/Targets/ReactNativeBinaryExampleUI/Sources/MainViewController.swift))
 
 ## Development
 
