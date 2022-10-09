@@ -30,6 +30,8 @@ function create_xcframework() {
     basename=$(basename $framework)
     framework_name=$(basename $framework .framework)
 
+    echo "Processing $framework_name [$CONFIGURATION]"
+
     if [[ " ${excluded_frameworks[*]} " =~ " ${framework_name} " ]]; then
       continue
     fi

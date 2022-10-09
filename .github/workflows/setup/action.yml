@@ -10,6 +10,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set Xcode version
+      shell: zsh
+      run: |
+        sudo xcode-select -s "/Applications/Xcode_13.4.1.app"
+
     - name: Brew install
       run: make brew-install
       shell: bash
