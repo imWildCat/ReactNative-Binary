@@ -1,10 +1,6 @@
 name: "Archive Platform"
 description: "Xcode Archive single platform"
 inputs:
-  xcode-configuration:
-    description: "Build configuration of Xcode, either Debug or Release"
-    required: true
-    default: Release
   platform:
     description: "Apple platform, either iphonesimulator, iphoneos, or maccatalyst"
     required: true
@@ -13,16 +9,21 @@ runs:
   steps:
     - uses: ./.github/workflows/setup
       name: Setup
-      with:
-        xcode-configuration: ${{ inputs.xcode-configuration }}
 
     - name: Archive
       shell: bash
       run: |
-        make CONFIGURATION="${{ inputs.xcode-configuration }}" PLATFORM="${{ inputs.platform }}" archive-platform
+        make CONFIGURATION="Debug" PLATFORM="${{ inputs.platform }}" archive-platform
+        make CONFIGURATION="Release" PLATFORM="${{ inputs.platform }}" archive-platform
 
     - name: Upload to artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: "${{ inputs.platform }}-binary-${{ inputs.xcode-configuration }}"
-        path: "${{ inputs.platform }}-binary-${{ inputs.xcode-configuration }}.tar.gz"
+        name: "${{ inputs.platform }}-binary-Debug"
+        path: "${{ inputs.platform }}-binary-Debug.tar.gz"
+
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: "${{ inputs.platform }}-binary-Release"
+        path: "${{ inputs.platform }}-binary-Release.tar.gz"

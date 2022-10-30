@@ -22,24 +22,32 @@ function archive() {
   if [ "$PLATFORM" == "maccatalyst" ]; then
     SUPPORTS_MACCATALYST="YES"
     SDK="macosx"
+    DESTINATION="-destination \"generic/platform=OS X\""
   else
     SUPPORTS_MACCATALYST="NO"
     SDK=$PLATFORM
+    DESTINATION=""
   fi
 
-  xcodebuild archive \
+  XCODEBUILD_COMMAND="xcodebuild archive \
     -workspace "$PROJECT.xcworkspace" \
-    -scheme "$PROJECT" \
-    -configuration "$CONFIGURATION" \
+    -scheme $PROJECT \
+    -configuration $CONFIGURATION \
     -archivePath $SRCROOT/$PROJECT-$PLATFORM.xcarchive \
-    -sdk "$SDK" \
+    -sdk $SDK \
+    $DESTINATION \
     ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
     ARCHS=arm64\ x86_64 \
     CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO \
-    SUPPORTS_MACCATALYST="$SUPPORTS_MACCATALYST" | xcbeautify
+    SUPPORTS_MACCATALYST=$SUPPORTS_MACCATALYST | xcbeautify"
+  # put the command above into a string variable
+
+  echo "Running: $XCODEBUILD_COMMAND"
+
+  eval $XCODEBUILD_COMMAND
 }
 
 archive
