@@ -22,7 +22,7 @@ function archive() {
   if [ "$PLATFORM" == "maccatalyst" ]; then
     SUPPORTS_MACCATALYST="YES"
     SDK="macosx"
-    DESTINATION="-destination generic/platform=OS X"
+    DESTINATION="-destination \"generic/platform=OS X\""
   else
     SUPPORTS_MACCATALYST="NO"
     SDK=$PLATFORM
