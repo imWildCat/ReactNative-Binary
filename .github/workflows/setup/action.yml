@@ -1,9 +1,6 @@
 name: "Project Setup"
 description: "Install dependencies"
 inputs:
-  xcode-configuration:
-    description: "Build configuration of Xcode, either Debug or Release"
-    required: true
   platform:
     description: "Apple platform, either iphonesimulator, iphoneos, or maccatalyst"
     required: true
@@ -27,7 +24,6 @@ runs:
           ${{ runner.os }}-pods-
 
     - uses: actions/cache@v3
-      if: "${{inputs.xcode-configuration}} == 'Debug'"
       with:
         path: build/ccache_dir
         key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}

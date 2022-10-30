@@ -9,9 +9,6 @@ jobs:
     runs-on: macos-12
     strategy:
       matrix:
-        xcode-configuration:
-          - Debug
-          - Release
         platform:
           - iphonesimulator
           - iphoneos
@@ -22,7 +19,6 @@ jobs:
       - uses: ./.github/workflows/archive-platform
         name: Set up and Archive
         with:
-          xcode-configuration: ${{ matrix.xcode-configuration }}
           platform: ${{ matrix.platform }}
 
   publish-cocoapods:
