@@ -13,7 +13,7 @@ runs:
     - name: Archive
       shell: bash
       run: |
-        make CONFIGURATION="DEBUG" PLATFORM="${{ inputs.platform }}" archive-platform
+        make CONFIGURATION="Debug" PLATFORM="${{ inputs.platform }}" archive-platform
         make CONFIGURATION="Release" PLATFORM="${{ inputs.platform }}" archive-platform
 
     - name: Upload to artifacts
