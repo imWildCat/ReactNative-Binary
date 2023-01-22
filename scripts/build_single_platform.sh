@@ -29,6 +29,11 @@ function archive() {
     DESTINATION=""
   fi
 
+  architectures="arm64 x86_64"
+  if [ "$PLATFORM" == "iphoneos" ]; then
+    architectures="arm64"
+  fi
+
   XCODEBUILD_COMMAND="xcodebuild archive \
     -workspace "$PROJECT.xcworkspace" \
     -scheme $PROJECT \
@@ -38,7 +43,7 @@ function archive() {
     $DESTINATION \
     ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 \
+    ARCHS=$architectures \
     CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO \
