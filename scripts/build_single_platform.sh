@@ -4,6 +4,8 @@ CONFIGURATION=$1
 
 PLATFORM=$2
 
+DRY_RUN=${DRY_RUN:-false}
+
 if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
   echo "Usage: $0 <Debug/Release>"
   exit 1
@@ -52,6 +54,10 @@ function archive() {
 
   echo "Running: $XCODEBUILD_COMMAND"
 
+  if [ "$DRY_RUN" == "true" ]; then
+    echo "Dry run, not running command"
+    exit 0
+  fi
   eval $XCODEBUILD_COMMAND
 }
 

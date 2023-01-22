@@ -10,7 +10,7 @@ target 'DummyApp' do
   use_react_native!(
     path: './frontend/node_modules/react-native',
     # production: ,
-    fabric_enabled: true,
+    fabric_enabled: false,
     hermes_enabled: true,
     app_path: "#{Pod::Config.instance.installation_root}/frontend"
   )
