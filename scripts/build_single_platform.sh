@@ -31,7 +31,7 @@ function archive() {
     DESTINATION=""
   fi
 
-  architectures="arm64 x86_64"
+  architectures="\"arm64 x86_64\""
   if [ "$PLATFORM" == "iphoneos" ]; then
     architectures="arm64"
   fi
