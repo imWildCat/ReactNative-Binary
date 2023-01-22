@@ -3,9 +3,16 @@ require_relative './frontend/node_modules/@react-native-community/cli-platform-i
 
 platform :ios, min_ios_version_supported
 
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+unless linkage.nil?
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! linkage: linkage.to_sym
+end
+
 target 'DummyApp' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  # config = use_native_modules!
 
   use_react_native!(
     path: './frontend/node_modules/react-native',
