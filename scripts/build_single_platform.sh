@@ -4,6 +4,8 @@ CONFIGURATION=$1
 
 PLATFORM=$2
 
+DRY_RUN=${DRY_RUN:-false}
+
 if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
   echo "Usage: $0 <Debug/Release>"
   exit 1
@@ -29,6 +31,11 @@ function archive() {
     DESTINATION=""
   fi
 
+  architectures="\"arm64 x86_64\""
+  if [ "$PLATFORM" == "iphoneos" ]; then
+    architectures="arm64"
+  fi
+
   XCODEBUILD_COMMAND="xcodebuild archive \
     -workspace "$PROJECT.xcworkspace" \
     -scheme $PROJECT \
@@ -38,7 +45,7 @@ function archive() {
     $DESTINATION \
     ENABLE_BITCODE=NO \
     SKIP_INSTALL=NO \
-    ARCHS=arm64\ x86_64 \
+    ARCHS=$architectures \
     CODE_SIGNING_ALLOWED=NO \
     CODE_SIGN_IDENTITY="" \
     CODE_SIGNING_REQUIRED=NO \
@@ -47,6 +54,10 @@ function archive() {
 
   echo "Running: $XCODEBUILD_COMMAND"
 
+  if [ "$DRY_RUN" == "true" ]; then
+    echo "Dry run, not running command"
+    exit 0
+  fi
   eval $XCODEBUILD_COMMAND
 }
 

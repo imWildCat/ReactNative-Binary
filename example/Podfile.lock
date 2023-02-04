@@ -1,10 +1,10 @@
 PODS:
-  - ReactNative-Binary (0.69.4):
-    - ReactNative-Binary/main (= 0.69.4)
-  - ReactNative-Binary-Debug (0.69.4):
-    - ReactNative-Binary-Debug/main (= 0.69.4)
-  - ReactNative-Binary-Debug/main (0.69.4)
-  - ReactNative-Binary/main (0.69.4)
+  - ReactNative-Binary (0.70.4):
+    - ReactNative-Binary/main (= 0.70.4)
+  - ReactNative-Binary-Debug (0.70.4):
+    - ReactNative-Binary-Debug/main (= 0.70.4)
+  - ReactNative-Binary-Debug/main (0.70.4)
+  - ReactNative-Binary/main (0.70.4)
 
 DEPENDENCIES:
   - ReactNative-Binary
@@ -16,8 +16,8 @@ SPEC REPOS:
     - ReactNative-Binary-Debug
 
 SPEC CHECKSUMS:
-  ReactNative-Binary: bf694dbfe899890ed0180046d347473956a15ef3
-  ReactNative-Binary-Debug: 942c97aa614ec08e90682662007a4ed4275f1830
+  ReactNative-Binary: 758bef6f070a6cf88c1bfd24219d2517f9444ee3
+  ReactNative-Binary-Debug: 9cac1161c0ae7bb71f05892e27288ad9c7df6886
 
 PODFILE CHECKSUM: 579562a8fbe29557b89eca7b1527fadb5bd4987a
 

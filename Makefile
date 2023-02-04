@@ -16,7 +16,7 @@ prepare:
 
 gen:
 	xcodegen
-	bundle exec pod install
+	RCT_NEW_ARCH_ENABLED=0 USE_FRAMEWORKS=dynamic bundle exec pod install
 	scripts/patch_catalyst.sh
 	scripts/set_up_xcode_env.sh
 
