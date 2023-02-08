@@ -1,9 +1,9 @@
 version = '0.71.2'
 
-source = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework/releases/download/v0.71.2/ReactNative-Binary-v0.71.2-Release.tar.gz'
+source = 'https://github.com/imWildCat/ReactNativeAppleBinaryFramework/releases/download/v0.71.2/ReactNative-Binary-v0.71.2-Debug.tar.gz'
 
 Pod::Spec.new do |s|
-  s.name                      = 'ReactNative-Binary'
+  s.name                      = 'ReactNative-Binary-Debug'
   s.version                   = version.to_s
   s.summary                   = 'React Native xcframeworks'
   s.description               = <<-DESC
