@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-matrix:
-    runs-on: macos-12
+    runs-on: macos-13
     strategy:
       matrix:
         platform:
@@ -25,7 +25,7 @@ jobs:
 
   create-xcframework-archives:
     name: "Create xcframeworks"
-    runs-on: macos-12
+    runs-on: macos-13
     needs:
       - build-matrix
     steps:
@@ -36,8 +36,8 @@ jobs:
         name: Set up and Build xcframework Archive
 
   build-example-project:
-    name: 'Build the example project'
-    runs-on: macos-12
+    name: "Build the example project"
+    runs-on: macos-13
     steps:
       - name: Checkout
         uses: actions/checkout@v3
