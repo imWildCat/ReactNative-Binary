@@ -45,7 +45,6 @@ jobs:
       - name: Build the example project
         run: |
           cd example
-          make tuist-install
           make yarn-install
           make bundle
           make gen

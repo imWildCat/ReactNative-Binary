@@ -1,0 +1,69 @@
+name: ReactNativeBinaryExample
+options:
+  bundleIdPrefix: io.wildcat
+  deploymentTarget:
+    iOS: 13.0
+configs:
+  Debug: debug
+  Release: release
+settings:
+  BASE_SDK: iphoneos
+targets:
+  ReactNativeBinaryExample:
+    type: application
+    platform: iOS
+    sources: 
+      - path: Targets/ReactNativeBinaryExample/Sources/**
+    resources:
+      - path: Targets/ReactNativeBinaryExample/Resources/**
+    dependencies:
+      - target: ReactNativeBinaryExampleKit
+      - target: ReactNativeBinaryExampleUI
+    settings:
+      INFO_PLIST_FILE: Targets/ReactNativeBinaryExample/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExample
+      IPHONEOS_DEPLOYMENT_TARGET: 13.0
+  ReactNativeBinaryExampleTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Targets/ReactNativeBinaryExample/Tests/**
+    dependencies:
+      - target: ReactNativeBinaryExample
+    settings:
+      INFO_PLIST_FILE: Targets/ReactNativeBinaryExampleTests/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleTests
+  ReactNativeBinaryExampleKit:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Targets/ReactNativeBinaryExampleKit/Sources/**
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleKit
+  ReactNativeBinaryExampleKitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Targets/ReactNativeBinaryExampleKit/Tests/**
+    dependencies:
+      - target: ReactNativeBinaryExampleKit
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleKitTests
+  ReactNativeBinaryExampleUI:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Targets/ReactNativeBinaryExampleUI/Sources/**
+    resources:
+      - path: Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleUI
+  ReactNativeBinaryExampleUITests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Targets/ReactNativeBinaryExampleUI/Tests/**
+    dependencies:
+      - target: ReactNativeBinaryExampleUI
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleUITests
