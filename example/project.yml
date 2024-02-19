@@ -2,7 +2,7 @@ name: ReactNativeBinaryExample
 options:
   bundleIdPrefix: io.wildcat
   deploymentTarget:
-    iOS: 13.0
+    iOS: 15.0
 configs:
   Debug: debug
   Release: release
@@ -13,9 +13,9 @@ targets:
     type: application
     platform: iOS
     sources: 
-      - path: Targets/ReactNativeBinaryExample/Sources/**
+      - path: Targets/ReactNativeBinaryExample/Sources
     resources:
-      - path: Targets/ReactNativeBinaryExample/Resources/**
+      - path: Targets/ReactNativeBinaryExample/Resources
     dependencies:
       - target: ReactNativeBinaryExampleKit
       - target: ReactNativeBinaryExampleUI
@@ -27,7 +27,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: Targets/ReactNativeBinaryExample/Tests/**
+      - path: Targets/ReactNativeBinaryExample/Tests
     dependencies:
       - target: ReactNativeBinaryExample
     settings:
@@ -37,14 +37,14 @@ targets:
     type: framework
     platform: iOS
     sources:
-      - path: Targets/ReactNativeBinaryExampleKit/Sources/**
+      - path: Targets/ReactNativeBinaryExampleKit/Sources
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExampleKit
   ReactNativeBinaryExampleKitTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: Targets/ReactNativeBinaryExampleKit/Tests/**
+      - path: Targets/ReactNativeBinaryExampleKit/Tests
     dependencies:
       - target: ReactNativeBinaryExampleKit
     settings:
@@ -53,7 +53,7 @@ targets:
     type: framework
     platform: iOS
     sources:
-      - path: Targets/ReactNativeBinaryExampleUI/Sources/**
+      - path: Targets/ReactNativeBinaryExampleUI/Sources
     resources:
       - path: Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle
     settings:
@@ -62,7 +62,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: Targets/ReactNativeBinaryExampleUI/Tests/**
+      - path: Targets/ReactNativeBinaryExampleUI/Tests
     dependencies:
       - target: ReactNativeBinaryExampleUI
     settings:
