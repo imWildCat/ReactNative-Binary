@@ -42,9 +42,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Brew install
+        run: make brew-install
+        shell: bash
+
       - name: Build the example project
         run: |
           cd example
+          brew install
           make yarn-install
           make bundle
           make gen
