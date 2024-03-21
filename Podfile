@@ -30,6 +30,5 @@ target 'DummyApp' do
       # necessary for Mac Catalyst builds
       mac_catalyst_enabled: true
     )
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
