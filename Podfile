@@ -12,7 +12,7 @@ unless linkage.nil?
 end
 
 target 'DummyApp' do
-  # config = use_native_modules!
+  config = use_native_modules!
 
   use_react_native!(
     path: './frontend/node_modules/react-native',
