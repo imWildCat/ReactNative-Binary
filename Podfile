@@ -1,5 +1,8 @@
-require_relative './frontend/node_modules/react-native/scripts/react_native_pods'
-require_relative './frontend/node_modules/@react-native-community/cli-platform-ios/native_modules'
+require Pod::Executable.execute_command('node', ['-p',
+'require.resolve(
+  "./frontend/node_modules/react-native/scripts/react_native_pods.rb",
+  {paths: [process.argv[1]]},
+)', __dir__]).strip
 
 platform :ios, min_ios_version_supported
 
