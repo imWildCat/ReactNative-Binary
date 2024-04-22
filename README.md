@@ -10,6 +10,11 @@ Features:
 
 Inspired by <https://github.com/traveloka/ios-rn-prebuilt>.
 
+## Project State
+
+Thanks for your interesting of opening this web page.
+I'll be resuming the development of this project soon, probably in a couple of hours.
+
 ## Get Started
 
 ### Installation
