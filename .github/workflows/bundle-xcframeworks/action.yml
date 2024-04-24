@@ -38,6 +38,7 @@ runs:
     - name: "Move archives"
       shell: bash
       run: |
+        cd ios
         mv ./iphoneos-binary-Debug/iphoneos-binary-Debug.tar.gz .
         mv ./iphoneos-binary-Release/iphoneos-binary-Release.tar.gz .
         mv ./maccatalyst-binary-Debug/maccatalyst-binary-Debug.tar.gz .

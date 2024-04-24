@@ -13,6 +13,7 @@ runs:
     - name: Archive
       shell: bash
       run: |
+        cd ios
         make CONFIGURATION="Debug" PLATFORM="${{ inputs.platform }}" archive-platform
         make CONFIGURATION="Release" PLATFORM="${{ inputs.platform }}" archive-platform
 

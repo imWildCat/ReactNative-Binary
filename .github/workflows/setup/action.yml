@@ -50,6 +50,7 @@ runs:
     - name: Prepare
       shell: bash
       run: |
+        cd ios
         make prepare
     - name: "Generate Xcode project"
       shell: bash

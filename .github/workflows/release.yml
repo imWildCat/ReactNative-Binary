@@ -42,10 +42,12 @@ jobs:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
+          cd ios
           make release
       - name: "Publish to CocoaPods"
         shell: bash
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: |
+          cd ios
           make publish
