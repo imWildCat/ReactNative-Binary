@@ -3,6 +3,8 @@ name: DummyApp
 #   - base_spec.yml
 options:
   bundleIdPrefix: com.my.dummy.app
+  postGenCommand: |
+    bundle exec pod install --repo-update
 targets:
   DummyApp:
     type: application

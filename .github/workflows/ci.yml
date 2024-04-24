@@ -42,10 +42,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Brew install xcodegen
+        run: brew install xcodegen
+        shell: bash
+
       - name: Build the example project
         run: |
           cd example
-          make tuist-install
           make yarn-install
           make bundle
           make gen
