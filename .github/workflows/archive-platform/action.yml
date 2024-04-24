@@ -14,8 +14,12 @@ runs:
       shell: bash
       run: |
         cd ios
+        echo "before compile:"
+        ccache --show-stats -v
         make CONFIGURATION="Debug" PLATFORM="${{ inputs.platform }}" archive-platform
         make CONFIGURATION="Release" PLATFORM="${{ inputs.platform }}" archive-platform
+        echo "ccache stats:"
+        ccache --show-stats -v
 
     - name: Upload to artifacts
       uses: actions/upload-artifact@v2
