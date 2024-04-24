@@ -42,4 +42,6 @@ runs:
     - name: "Generate Xcode project"
       shell: bash
       run: |
+        pushd ios
         make gen
+        popd
