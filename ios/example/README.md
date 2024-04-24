@@ -7,7 +7,7 @@
 make tuist-install # Or grab `tuistenv` at: <https://github.com/tuist/tuist/releases>
 
 # Install node dependencies
-make yarn-install
+make npm install
 
 # Build JavaScript bundle for React Native
 make bundle

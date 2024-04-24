@@ -12,7 +12,7 @@ brew-install:
 
 prepare:
 	bundle install
-	cd frontend && yarn install
+	cd frontend && npm install
 
 gen:
 	xcodegen
