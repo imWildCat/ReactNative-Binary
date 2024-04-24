@@ -7,12 +7,9 @@ build-xcframework:
 archive-platform:
 	scripts/build_single_platform.sh $(CONFIGURATION) $(PLATFORM) $(PLATFORM).tar.gz
 
-brew-install:
-	brew bundle install --no-lock --file Brewfile
-
 prepare:
 	bundle install
-	cd frontend && npm install
+	cd .. && npm install
 
 gen:
 	xcodegen

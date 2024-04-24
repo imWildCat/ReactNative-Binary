@@ -18,7 +18,7 @@ runs:
 
     - uses: actions/cache@v3
       with:
-        path: Pods
+        path: ios/Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
@@ -26,22 +26,9 @@ runs:
     - uses: actions/cache@v3
       with:
         path: build/ccache_dir
-        key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('**/Podfile', 'frontend/yarn.lock') }}
+        key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('**/Podfile', 'package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-${{inputs.platform}}-ccache-
-
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
-      shell: bash
-
-    - uses: actions/cache@v3
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
