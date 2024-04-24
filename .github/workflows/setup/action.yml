@@ -21,17 +21,10 @@ runs:
 
     - uses: actions/cache@v3
       with:
-        path: ios/Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        path: ~/.ccache
+        key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-pods-
-
-    - uses: actions/cache@v3
-      with:
-        path: build/ccache_dir
-        key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('**/Podfile', 'package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-${{inputs.platform}}-ccache-
+          ${{ runner.os }}-${{inputs.platform}}-ccache-dir
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
