@@ -14,13 +14,7 @@ if linkage != nil
 end
 
 target 'DummyApp' do
-  config = use_native_modules!({
-    'project': {
-      'ios': {
-        'sourceDir': './',
-      }
-    }
-  })
+  config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -33,7 +27,8 @@ target 'DummyApp' do
     react_native_post_install(
       installer,
       config[:reactNativePath],
-      :mac_catalyst_enabled => true
+      :mac_catalyst_enabled => true,
+      :ccache_enabled => true,
     )
   end
 end

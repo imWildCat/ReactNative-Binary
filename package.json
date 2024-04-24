@@ -5,6 +5,9 @@
     "react": "18.2.0",
     "react-native": "0.74.0"
   },
+  "scripts": {
+    "ios": "react-native run-ios"
+  },
   "devDependencies": {
     "@react-native-community/cli": "^12.3.4",
     "@react-native/babel-preset": "0.73.20",
