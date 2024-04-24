@@ -52,5 +52,4 @@ jobs:
           make install
           make bundle
           make gen
-          make open
           make build

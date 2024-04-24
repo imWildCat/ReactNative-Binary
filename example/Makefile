@@ -10,3 +10,10 @@ install:
 
 open:
 	xed ReactNativeBinaryExample.xcworkspace
+
+build:
+	xcodebuild -workspace ReactNativeBinaryExample.xcworkspace \
+           -scheme ReactNativeBinaryExample \
+           -destination 'platform=iOS Simulator,name=iPhone 14' \
+           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+           | xcbeautify

@@ -73,3 +73,7 @@ Tuist/Dependencies
 
 Targets/ReactNativeBinaryExampleUI/Sources/generated/index.jsbundle
 .swiftpm/
+
+
+Pods
+DerivedData
