@@ -49,7 +49,7 @@ jobs:
       - name: Build the example project
         run: |
           cd example
-          make yarn-install
+          make install
           make bundle
           make gen
           make open

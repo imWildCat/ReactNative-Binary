@@ -5,7 +5,7 @@ gen:
 bundle:
 	cd scripts && yarn bundle-ios
 
-yarn-install:
+install:
 	cd scripts && yarn
 
 open:
