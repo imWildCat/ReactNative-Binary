@@ -6,7 +6,7 @@ on:
       - "releases/**"
 jobs:
   build-matrix:
-    runs-on: macos-13
+    runs-on: macos-14
     strategy:
       matrix:
         platform:
@@ -23,7 +23,7 @@ jobs:
 
   publish-cocoapods:
     name: "Create Xcframeworks and Publish to CocoaPods"
-    runs-on: macos-13
+    runs-on: macos-14
     needs:
       - build-matrix
     if: "!contains(github.event.commits[0].message, '[skip ci]')"

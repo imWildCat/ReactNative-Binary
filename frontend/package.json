@@ -1,9 +1,15 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "dependencies": {
-    "react-native": "0.72.6"
+    "react": "18.2.0",
+    "react-native": "0.74.0"
+  },
+  "devDependencies": {
+    "@react-native-community/cli": "^12.3.4",
+    "@react-native/babel-preset": "0.73.20",
+    "@react-native/eslint-config": "0.73.2",
+    "@react-native/metro-config": "0.73.4",
+    "@react-native/typescript-config": "0.73.1"
   }
 }

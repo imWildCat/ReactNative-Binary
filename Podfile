@@ -1,5 +1,9 @@
-require_relative './frontend/node_modules/react-native/scripts/react_native_pods'
-require_relative './frontend/node_modules/@react-native-community/cli-platform-ios/native_modules'
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "./frontend/node_modules/react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
 
 platform :ios, min_ios_version_supported
 
@@ -12,24 +16,28 @@ unless linkage.nil?
 end
 
 target 'DummyApp' do
-  # config = use_native_modules!
+  config = use_native_modules!({
+    'project': {
+      'ios': {
+        'sourceDir': './',
+      }
+    }
+  })
 
   use_react_native!(
     path: './frontend/node_modules/react-native',
     # production: ,
-    fabric_enabled: false,
+    fabric_enabled: true,
     hermes_enabled: true,
     app_path: "#{Pod::Config.instance.installation_root}/frontend"
   )
 
   post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
-      './frontend/node_modules/react-native',
-      # Set `mac_catalyst_enabled` to `true` in order to apply patches
-      # necessary for Mac Catalyst builds
-      mac_catalyst_enabled: true
+      config[:reactNativePath],
+      :mac_catalyst_enabled => true
     )
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
