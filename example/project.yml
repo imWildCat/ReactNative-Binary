@@ -20,9 +20,9 @@ targets:
       - target: ReactNativeBinaryExampleKit
       - target: ReactNativeBinaryExampleUI
     settings:
-      INFO_PLIST_FILE: Targets/ReactNativeBinaryExample/Info.plist
       PRODUCT_BUNDLE_IDENTIFIER: io.wildcat.ReactNativeBinaryExample
-      IPHONEOS_DEPLOYMENT_TARGET: 13.0
+      IPHONEOS_DEPLOYMENT_TARGET: 15.0
+      GENERATE_INFOPLIST_FILE: YES
   ReactNativeBinaryExampleTests:
     type: bundle.unit-test
     platform: iOS
