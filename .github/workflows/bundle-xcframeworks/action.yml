@@ -9,32 +9,32 @@ runs:
       name: "Download Debug (iphoneos)"
       with:
         name: "iphoneos-binary-Debug"
-        path: ./iphoneos-binary-Debug
+        path: ./ios/iphoneos-binary-Debug
     - uses: actions/download-artifact@v3
       name: "Download Release (iphoneos)"
       with:
         name: "iphoneos-binary-Release"
-        path: ./iphoneos-binary-Release
+        path: ./ios/iphoneos-binary-Release
     - uses: actions/download-artifact@v3
       name: "Download Debug (maccatalyst)"
       with:
         name: "maccatalyst-binary-Debug"
-        path: ./maccatalyst-binary-Debug
+        path: ./ios/maccatalyst-binary-Debug
     - uses: actions/download-artifact@v3
       name: "Download Release (maccatalyst)"
       with:
         name: "maccatalyst-binary-Release"
-        path: ./maccatalyst-binary-Release
+        path: ./ios/maccatalyst-binary-Release
     - uses: actions/download-artifact@v3
       name: "Download Debug (iphonesimulator)"
       with:
         name: "iphonesimulator-binary-Debug"
-        path: ./iphonesimulator-binary-Debug
+        path: ./ios/iphonesimulator-binary-Debug
     - uses: actions/download-artifact@v3
       name: "Download Release (iphonesimulator)"
       with:
         name: "iphonesimulator-binary-Release"
-        path: ./iphonesimulator-binary-Release
+        path: ./ios/iphonesimulator-binary-Release
     - name: "Move archives"
       shell: bash
       run: |

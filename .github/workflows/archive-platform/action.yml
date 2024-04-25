@@ -25,10 +25,10 @@ runs:
       uses: actions/upload-artifact@v2
       with:
         name: "${{ inputs.platform }}-binary-Debug"
-        path: "${{ inputs.platform }}-binary-Debug.tar.gz"
+        path: "ios/${{ inputs.platform }}-binary-Debug.tar.gz"
 
     - name: Upload to artifacts
       uses: actions/upload-artifact@v2
       with:
         name: "${{ inputs.platform }}-binary-Release"
-        path: "${{ inputs.platform }}-binary-Release.tar.gz"
+        path: "ios/${{ inputs.platform }}-binary-Release.tar.gz"
