@@ -2,8 +2,8 @@ name: Build
 
 on:
   push:
-    # main and all branches
-    branches: ["main", "*"]
+    # main and all non release branches
+    branches: ["main", "!releases/**"]
   pull_request:
     branches: ["main"]
 
