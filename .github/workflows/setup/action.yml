@@ -21,7 +21,7 @@ runs:
 
     - uses: actions/cache@v3
       with:
-        path: ~/.ccache
+        path: /Users/runner/Library/Caches/ccache
         key: ${{ runner.os }}-${{inputs.platform}}-ccache-${{ hashFiles('package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-${{inputs.platform}}-ccache-dir

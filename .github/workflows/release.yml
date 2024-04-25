@@ -7,8 +7,6 @@ on:
 jobs:
   build-matrix:
     runs-on: macos-14
-    env:
-      CCACHE_DIR: ~/.ccache
     strategy:
       matrix:
         platform:

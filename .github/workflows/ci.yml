@@ -9,8 +9,6 @@ on:
 jobs:
   build-matrix:
     runs-on: macos-14
-    env:
-      CCACHE_DIR: ~/.ccache
     strategy:
       matrix:
         platform:
@@ -28,8 +26,6 @@ jobs:
   create-xcframework-archives:
     name: "Create xcframeworks"
     runs-on: macos-14
-    env:
-      CCACHE_DIR: ~/.ccache
     needs:
       - build-matrix
     steps:
@@ -42,8 +38,6 @@ jobs:
   build-example-project:
     name: "Build the example project"
     runs-on: macos-14
-    env:
-      CCACHE_DIR: ~/.ccache
     steps:
       - name: Checkout
         uses: actions/checkout@v3
