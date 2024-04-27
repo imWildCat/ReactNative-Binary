@@ -48,11 +48,13 @@ runs:
     - name: "Merge archives into xcframeworks"
       shell: bash
       run: |
+        cd ios
         CONFIGURATION=Debug make build-xcframework
         CONFIGURATION=Release make build-xcframework
 
     - name: "Validate file size"
       shell: bash
       run: |
+        cd ios
         make FILE_PATH=./ReactNative-binary-Debug.tar.gz validate-archive
         make FILE_PATH=./ReactNative-binary-Release.tar.gz validate-archive
