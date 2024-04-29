@@ -45,8 +45,8 @@ function create_xcframework() {
     echo "Created xcframework: $framework_name.xcframework"
   done
 
-  cp README.md Frameworks/
-  cp LICENSE Frameworks/
+  cp ../README.md Frameworks/
+  cp ../LICENSE Frameworks/
   tar -cvzf ReactNative-binary-"$CONFIGURATION".tar.gz Frameworks
 }
 
